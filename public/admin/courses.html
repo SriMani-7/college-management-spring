@@ -89,13 +89,9 @@
         role="tabpanel"
         aria-labelledby="ex1-tab-2"
       >
-        <button
-          class="btn-outline-primary btn mb-3"
-          data-bs-toggle="modal"
-          data-bs-target="#facultyModal"
-        >
+        <a class="btn-outline-primary btn mb-3" id="new-fa-a">
           Add new faculty
-        </button>
+        </a>
 
         <div class="table-responsive table-bordered">
           <table class="table">
@@ -120,13 +116,10 @@
         role="tabpanel"
         aria-labelledby="ex1-tab-3"
       >
-        <button
-          class="btn-outline-primary btn mb-3"
-          data-bs-toggle="modal"
-          data-bs-target="#studentModal"
-        >
-          Add new student
-        </button>
+        <a class="btn-outline-primary btn mb-3" id="new-stu-a">
+          Add new Student
+        </a>
+
         <div class="table-responsive table-bordered">
           <table class="table">
             <thead>
@@ -157,30 +150,12 @@
     <script>
       document.body.append(
         createModal(
-          "facultyModal",
-          "Facuty Registration form",
-          FacultyRegistrationForm("handleForm(event, 'faculty')").outerHTML
-        )
-      );
-
-      document.body.append(
-        createModal(
-          "studentModal",
-          "Student Registration form",
-          StudentRegistrationForm("handleForm(event, 'students')").outerHTML
-        )
-      );
-
-      document.body.append(
-        createModal(
           "subjectsModal",
           "Add new subject",
           SubjectForm("handleForm(event, 'subjects')").outerHTML
         )
       );
 
-      const studentModal = new bootstrap.Modal("#studentModal");
-      const facultyModal = new bootstrap.Modal("#facultyModal");
       const subjectsModal = new bootstrap.Modal("#subjectsModal");
 
       function handleForm(event, type) {
