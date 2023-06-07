@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/boostrap/bootstrap.min.css}"/>
+    <title>Mcms</title>
+</head>
+<body>
+
+
+
+<!--Fragment :: List of students-->
+<div th:fragment="students" class="container p-3 card">
+    <div class="container-fluid">
+        <div class="mb-2">
+            <h5>All students</h5>
+            <a type="button"
+               th:href="@{/admin/new-student}"
+               class="btn btn-outline-primary justify-content-end">
+                Add student
+            </a>
+        </div>
+    </div>
+    <table class="table-responsive card-body">
+        
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.admissionNumber}"></td>
+            <td th:text="${#dates.format(student.joiningDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${student.rollNumber}"></td>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.course.name}"></td>
+            <td th:text="${student.academicYear}"></td>
+            <td th:text="${student.contactDetails.city}"></td>
+            <td th:text="${student.contactDetails.mobileNumber}"></td>
+            <td th:text="${student.contactDetails.email}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--Fragment :: List of faculties-->
+<div th:fragment="faculties" class="container p-3 card">
+    <table class="table-responsive card-body">
+        <tr class="thead-light">
+            <th scope="col">Joining date</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Course</th>
+            <!--            <th scope="col">Subject</th>-->
+            <th scope="col">City</th>
+            <th scope="col">Mobile number</th>
+            <th scope="col">Email</th>
+        </tr>
+        <tbody>
+        <tr th:each="faculty : ${faculties}">
+            <td th:text="${#dates.format(faculty.joiningDate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${faculty.firstName}"></td>
+            <td th:text="${faculty.lastName}"></td>
+            <td th:text="${faculty.course.name}"></td>
+            <!--            <td th:text="${faculty.subject.name}"></td>-->
+            <td th:text="${faculty.contactDetails.city}"></td>
+            <td th:text="${faculty.contactDetails.mobileNumber}"></td>
+            <td th:text="${faculty.contactDetails.email}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<div th:fragment="courseSubjects" class="container p-3 card">
+    <div class="container-fluid">
+        <div class="mb-2">
+            <h5>
+                <th:block th:text="${course.shortName}"></th:block>
+                Subjects
+            </h5>
+            <a type="button"
+               th:href="@{/admin/new-subject(courseId=${course.id})}"
+               class="btn btn-outline-primary justify-content-end">
+                Add new subject
+            </a>
+        </div>
+    </div>
+    <table class="table-responsive card-body">
+        <tr class="thead-light">
+            <th scope="col">Subject ID</th>
+            <th scope="col">Subject Name</th>
+            <th scope="col">Semester</th>
+        </tr>
+        <tbody>
+        <tr th:each="subject : ${subjects}">
+            <td th:text="${subject.subjectId}"></td>
+            <td th:text="${subject.name}"></td>
+            <td th:text="${subject.semester}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script th:src="@{/boostrap/bootstrap.min.js}"></script>
+</body>
+</html>

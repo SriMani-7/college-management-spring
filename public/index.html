@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/boostrap/bootstrap.min.css" />
+    <title>Mcms</title>
+  </head>
+
+  <body>
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Unknown Degree & PG College</h1>
+          <p class="lead text-muted">
+            The college is committed to unlocking the potential of each
+            individual, igniting their minds, and enriching their lives. With
+            Degree and PG College as your educational partner, you can embark on
+            a journey of self-discovery, realizing your true potential and
+            paving the way to a bright and promising future.
+          </p>
+
+          <p>
+            <button
+              class="btn btn-outline-primary m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              Login
+            </button>
+          </p>
+        </div>
+      </div>
+    </section>
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div
+          class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3 text-center"
+          id="courses-list"
+        ></div>
+      </div>
+    </div>
+    <script src="/boostrap/bootstrap.min.js"></script>
+
+    <script src="util.js"></script>
+    <script src="forms.js"></script>
+    <script>
+      const teachingGrades = {};
+
+      let model = createModal("loginModal", "Login form", loginForm.outerHTML);
+      document.body.append(model);
+
+      fetch("/api/courses", {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          loadCourses(json);
+        });
+
+      function login(event) {
+        let form = document.forms[0];
+        let errorLabel = document.getElementById("errorLabel");
+
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+          form.classList.add("was-validated");
+        } else {
+          console.log("I am in else");
+          userLogin();
+        }
+      }
+
+      async function userLogin() {
+        let errorLabel = document.getElementById("errorLabel");
+        let form = document.forms[0];
+        let body = {
+          userName: form["userName"].value,
+          password: form["password"].value,
+          userType: form["userType"].value,
+        };
+        let response = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+        console.log(response);
+        let json = await response.json();
+        if (response.status == 200) {
+          errorLabel.textContent = json.message;
+          const user = body.userType.toLowerCase();
+          if (user == "admin")
+            window.location.href = "admin/dashboard.html?nav=courses";
+          else window.location.href = `${user}/dashboard.html`;
+        } else if (response.status == 401) {
+          errorLabel.textContent = json.message;
+        } else if (response.status == 406) {
+        }
+        console.log(json);
+      }
+
+      let coursesList = document.querySelector("#courses-list");
+      function loadCourses(courses) {
+        coursesList.innerHTML = "";
+        courses.forEach((course) => {
+          coursesList.innerHTML += `
+          <div class="col">
+            <div class="card shadow-sm h-100">
+              <div class="p-3 pt-3">
+                <h4 class="card-title">${course.name}</h4>
+              </div>
+              <div class="card-body">
+                <h5 class="fw-normal">${course.shortName}</h5>
+                <p class="card-text text-center">${course.description}</p>
+              </div>
+            </div>
+          </div>`;
+        });
+      }
+    </script>
+  </body>
+</html>
