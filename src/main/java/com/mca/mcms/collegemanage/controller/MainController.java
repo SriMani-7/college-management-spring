@@ -1,5 +1,6 @@
 package com.mca.mcms.collegemanage.controller;
 
+import com.mca.mcms.collegemanage.Auth;
 import com.mca.mcms.collegemanage.RestUtils;
 import com.mca.mcms.collegemanage.dto.ForgetPassword;
 import com.mca.mcms.collegemanage.dto.UserDto;
@@ -27,9 +28,6 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api")
 public class MainController {
 
-    public static final String USERTYPE_ATTR = "userType";
-    public static final String USERNAME_ATTR = "userName";
-
     @Autowired
     private UserRepo userRepo;
 
@@ -45,14 +43,14 @@ public class MainController {
         switch (userDto.getUserType()) {
             case ADMIN -> {
                 if (userDto.getPassword().equals("1234567890")) {
-                    httpSession.setAttribute(USERTYPE_ATTR, UserType.ADMIN);
+                    httpSession.setAttribute(Auth.USERTYPE_ATTR, UserType.ADMIN);
                     return message(OK, "Login as admin");
                 } else return message(UNAUTHORIZED, "Invalid password");
             }
             case STUDENT, FACULTY -> {
                 if (userRepo.existsByUserNameAndPassword(userDto.getUserName(), userDto.getPassword())) {
-                    httpSession.setAttribute(USERTYPE_ATTR, userDto.getUserType());
-                    httpSession.setAttribute(USERNAME_ATTR, userDto.getUserName());
+                    httpSession.setAttribute(Auth.USERTYPE_ATTR, userDto.getUserType());
+                    httpSession.setAttribute(Auth.USERNAME_ATTR, userDto.getUserName());
                     return message(OK, "Login as " + userDto.getUserType().toString().toLowerCase());
                 } else if (userRepo.existsById(userDto.getUserName())) {
                     return message(HttpStatus.UNAUTHORIZED, "Invalid password");
@@ -100,10 +98,10 @@ public class MainController {
 
     @DeleteMapping("/logout")
     public ResponseEntity<?> logout(HttpSession httpSession) {
-        Object userType = httpSession.getAttribute(MainController.USERTYPE_ATTR);
+        Object userType = httpSession.getAttribute(Auth.USERTYPE_ATTR);
         if (userType != null) {
-            httpSession.removeAttribute(USERNAME_ATTR);
-            httpSession.removeAttribute(USERTYPE_ATTR);
+            httpSession.removeAttribute(Auth.USERNAME_ATTR);
+            httpSession.removeAttribute(Auth.USERTYPE_ATTR);
             httpSession.invalidate();
             return ResponseEntity.ok("Logout successfully");
         }

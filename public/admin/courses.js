@@ -5,10 +5,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const courseId = urlParams.get("courseId");
 
 document.getElementById("new-stu-a").href =
-  "student-register.html?courseId=" + courseId;
+  "student-register?courseId=" + courseId;
 
 document.getElementById("new-fa-a").href =
-  "faculty-register.html?courseId=" + courseId;
+  "faculty-register?courseId=" + courseId;
 
 const endPoints = {
   students: `../api/courses/${courseId}/students`,

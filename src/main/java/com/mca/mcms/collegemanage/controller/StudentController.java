@@ -1,5 +1,6 @@
 package com.mca.mcms.collegemanage.controller;
 
+import com.mca.mcms.collegemanage.Auth;
 import com.mca.mcms.collegemanage.entity.Student;
 import com.mca.mcms.collegemanage.entity.UserType;
 import com.mca.mcms.collegemanage.repo.StudentRepo;
@@ -31,11 +32,8 @@ public class StudentController {
 
     @GetMapping
     public ResponseEntity<?> getStudent(HttpSession httpSession) {
-        Object userType = httpSession.getAttribute(MainController.USERTYPE_ATTR);
-//        System.out.println(userType);
-        if (userType != null && userType.equals(UserType.STUDENT)) {
-            Object userName = httpSession.getAttribute(MainController.USERNAME_ATTR);
-//            System.out.println(userName);
+        if (Auth.hasLogin(UserType.STUDENT, httpSession)) {
+            Object userName = httpSession.getAttribute(Auth.USERNAME_ATTR);
             if (userName != null) {
                 long id = Long.parseLong(userName.toString());
                 Optional<Student> byId = studentRepo.findById(id);

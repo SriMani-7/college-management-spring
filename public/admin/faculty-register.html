@@ -33,7 +33,7 @@
       async function handlePost(form) {
         const response = await postForm(endPoint, form);
         if (response.status === 200) {
-          // history.back();
+          history.back();
         } else if (response.status === 500) {
           const errorLabel = form.getElementById("errorLabel");
           const json = await response.text();

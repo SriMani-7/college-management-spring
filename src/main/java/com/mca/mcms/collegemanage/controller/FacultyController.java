@@ -1,7 +1,7 @@
 package com.mca.mcms.collegemanage.controller;
 
+import com.mca.mcms.collegemanage.Auth;
 import com.mca.mcms.collegemanage.entity.Faculty;
-import com.mca.mcms.collegemanage.entity.Student;
 import com.mca.mcms.collegemanage.entity.UserType;
 import com.mca.mcms.collegemanage.repo.FacultyRepo;
 import jakarta.servlet.http.HttpSession;
@@ -32,11 +32,8 @@ public class FacultyController {
 
     @GetMapping
     public ResponseEntity<?> getFaculty(HttpSession httpSession) {
-        Object userType = httpSession.getAttribute(MainController.USERTYPE_ATTR);
-//        System.out.println(userType);
-        if (userType != null && userType.equals(UserType.FACULTY)) {
-            Object userName = httpSession.getAttribute(MainController.USERNAME_ATTR);
-//            System.out.println(userName);
+        if (Auth.hasLogin(UserType.FACULTY, httpSession)) {
+            Object userName = httpSession.getAttribute(Auth.USERNAME_ATTR);
             if (userName != null) {
                 String email = userName.toString();
                 Optional<Faculty> byEmail = facultyRepo.findByContactDetails_Email(email);

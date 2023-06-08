@@ -10,15 +10,15 @@
   <body>
     <header class="bg-light mb-3">
       <nav class="navbar navbar-light p-2">
-        <a class="navbar-brand" href="/admin/dashboard">Admin Dashboard</a>
+        <a class="navbar-brand" href="/admin">Admin Dashboard</a>
         <ul class="nav justify-content-end">
-          <a class="nav-link" href="/admin/dashboard.html?nav=courses"
+          <a class="nav-link" href="/admin?nav=courses"
             >Courses</a
           >
-          <a class="nav-link" href="/admin/dashboard.html?nav=faculties"
+          <a class="nav-link" href="/admin?nav=faculties"
             >Faculties</a
           >
-          <a class="nav-link" href="/admin/dashboard.html?nav=students"
+          <a class="nav-link" href="/admin?nav=students"
             >Students</a
           >
           <a class="nav-link" href="#">Logout</a>
@@ -111,7 +111,7 @@
                 <h5 class="card-title">${course.name}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">${course.shortName}</h6>
                 <p class="card-text">${course.description}</p>
-                <a class="card-link" href="/admin/courses.html?courseId=${course.id}">Open</a>
+                <a class="card-link" href="/admin-courses?courseId=${course.id}">Open</a>
               </div>
             </div>`;
         });

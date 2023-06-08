@@ -94,8 +94,8 @@
           errorLabel.textContent = json.message;
           const user = body.userType.toLowerCase();
           if (user == "admin")
-            window.location.href = "admin/dashboard.html?nav=courses";
-          else window.location.href = `${user}/dashboard.html`;
+            window.location.href = "admin?nav=courses";
+          else window.location.href = `${user}`;
         } else if (response.status == 401) {
           errorLabel.textContent = json.message;
         } else if (response.status == 406) {
