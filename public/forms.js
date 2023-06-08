@@ -99,21 +99,18 @@ function StudentRegistrationForm(onSubmit) {
       onsubmit: onSubmit,
     },
     children: [
-      FormField({
-        name: "firstName",
-        label: "Firstname",
-        error: "Must not be empty",
-      }),
-      FormField({
-        name: "lastName",
-        label: "Lastname",
-        error: "Must not be empty",
-      }),
-      FormField({
-        name: "firstName",
-        label: "Firstname",
-        error: "Must not be empty",
-      }),
+      Row([
+        FormField({
+          name: "firstName",
+          label: "Firstname",
+          error: "Must not be empty",
+        }),
+        FormField({
+          name: "lastName",
+          label: "Lastname",
+          error: "Must not be empty",
+        }),
+      ]),
       FormField({
         name: "admissionNumber",
         label: "Admission number",
@@ -139,16 +136,18 @@ function FacultyRegistrationForm(onSubmit) {
       onsubmit: onSubmit,
     },
     children: [
-      FormField({
-        name: "firstName",
-        label: "Firstname",
-        error: "Must not be empty",
-      }),
-      FormField({
-        name: "lastName",
-        label: "Lastname",
-        error: "Must not be empty",
-      }),
+      Row([
+        FormField({
+          name: "firstName",
+          label: "Firstname",
+          error: "Must not be empty",
+        }),
+        FormField({
+          name: "lastName",
+          label: "Lastname",
+          error: "Must not be empty",
+        }),
+      ]),
       FormField({
         name: "dob",
         label: "Date of birth",

@@ -110,3 +110,21 @@ function Label(forN, title) {
     title
   ])
 }
+
+function Row(children) {
+  return createElement('div', {
+    class: 'row'
+  }, children)
+}
+
+function handleFormSubmit(event, onValid) {
+  event.preventDefault();
+    const form = event.target;
+
+    if (!form.checkValidity()) {
+      event.stopPropagation();
+      form.classList.add("was-validated");
+    } else {
+      onValid(form);
+    }
+}

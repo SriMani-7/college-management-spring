@@ -4,6 +4,12 @@ const subjectsHost = document.querySelector("#subjects-host");
 const urlParams = new URLSearchParams(window.location.search);
 const courseId = urlParams.get("courseId");
 
+document.getElementById("new-stu-a").href =
+  "student-register.html?courseId=" + courseId;
+
+document.getElementById("new-fa-a").href =
+  "faculty-register.html?courseId=" + courseId;
+
 const endPoints = {
   students: `../api/courses/${courseId}/students`,
   faculty: `../api/courses/${courseId}/faculty`,
@@ -80,13 +86,7 @@ async function loadSubjects() {
 async function handlePost(type, form) {
   const response = await postForm(endPoints[type], form);
   if (response.status === 200) {
-    if (type == "subjects") {
-      loadSubjects();
-      subjectsModal.hide();
-    } else if (type == "students") {
-      loadStudents();
-      studentModal.hide();
-    } else if (type == "faculty") {
+    if (type == "faculty") {
       loadFaculties();
       facultyModal.hide();
     }
