@@ -28,7 +28,7 @@ public class Faculty {
     @ManyToOne
     private Subject subject;
     private LocalDate joiningDate;
-    private int level;
+    private FacultyType facultyType;
     private LocalDate dob;
 
     public String getName() {
