@@ -143,7 +143,7 @@ public class CourseController {
             contactDetailsRepo.save(contactDetails);
             student.setJoiningDate(LocalDate.now());
             student.setContactDetails(contactDetails);
-            student.setAcademicYear(1);
+//            student.setSemester(1);
             Optional<Course> byId = coursesRepo.findById(courseId);
             student.setCourse(byId.orElseThrow());
             try {

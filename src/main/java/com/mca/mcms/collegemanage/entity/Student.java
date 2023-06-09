@@ -20,7 +20,8 @@ public class Student {
     private ContactDetails contactDetails;
     private String firstName;
     private String lastName;
-    private int academicYear;
+    @Column(name = "semester", nullable = false)
+    private Integer semester = 1;
     @JoinColumn(referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_studentCourse"))
     @ManyToOne
     private Course course;
