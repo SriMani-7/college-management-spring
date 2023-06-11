@@ -44,6 +44,10 @@ async function loadFaculties() {
 		  <td>${faculty.contactDetails.city}</td>
 		  <td>${faculty.contactDetails.mobileNumber}</td>
 		  <td>${faculty.contactDetails.email}</td>
+      <td>
+        <button class="btn btn-outline-info btn-sm" onclick="ops('faculty', false, ${faculty.id})">Update</button>
+        <button class="btn btn-outline-danger btn-sm" onclick="ops('faculty', true, ${faculty.id})">Delete</button>
+      </td>
 		</tr>`;
   });
 }
@@ -51,8 +55,12 @@ async function loadFaculties() {
 async function loadStudents() {
   const response = await fetch(endPoints.students);
   const faculties = await response.json();
+  loadStudentsList(faculties);
+}
+
+function loadStudentsList(list) {
   studentsHost.innerHTML = "";
-  faculties.forEach((student) => {
+  list.forEach((student) => {
     studentsHost.innerHTML += `
 	  <tr>
 		<td>${student.admissionNumber}</td>
@@ -65,6 +73,10 @@ async function loadStudents() {
 		<td>${student.contactDetails.city}</td>
 		<td>${student.contactDetails.mobileNumber}</td>
 		<td>${student.contactDetails.email}</td>
+    <td>
+      <button class="btn btn-outline-info btn-sm" onclick="ops('students', false, ${student.admissionNumber})">Update</button>
+      <button class="btn btn-outline-danger btn-sm" onclick="ops('students', true, ${student.admissionNumber})">Delete</button>
+    </td>
 	</tr>`;
   });
 }
@@ -79,8 +91,35 @@ async function loadSubjects() {
 		<td>${subject.subjectId}</td>
 		<td>${subject.name}</td>
 		<td>${subject.semester}</td>
+    <td>
+      <button class="btn btn-outline-info btn-sm" onclick="ops('subjects', false, ${subject.id})">Update</button>
+      <button class="btn btn-outline-danger btn-sm" onclick="ops('subjects', true, ${subject.id})">Delete</button>
+    </td>
     </tr>`;
   });
+}
+
+function ops(user, isDelete, id) {
+  const endPoint = endPoints[user] + "/" + id;
+  try {
+    if (isDelete) {
+      del(endPoint).then(result => {
+        showToast(result, "success");
+        if(user == "faculty") loadFaculties();
+        else if(user == "students") loadStudents();
+        else if(user == "subjects") loadSubjects();
+      });
+    } else {
+      showToast('Coming soon !!', 'info');
+    }
+  } catch (error) {
+    showToast("Something went wrong, try again", "warning");
+  }
+}
+
+function showToast(message, type) {
+  let contaainer = document.querySelector(".toast-container");
+  contaainer.append(SimpleToast(message, "text-bg-" + type));
 }
 
 async function handlePost(type, form) {

@@ -17,8 +17,8 @@ public class Faculty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @JoinColumn(referencedColumnName = "id")
-    @OneToOne(cascade = CascadeType.ALL)
-    private ContactDetails contactDetails;
+    @Embedded
+    ContactDetails contactDetails;
     private String firstName;
     private String lastName;
     @JoinColumn(referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_facultyCourse"))

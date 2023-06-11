@@ -16,21 +16,17 @@ public class Student {
     @Id
     private long admissionNumber;
     @JoinColumn(referencedColumnName = "id")
-    @OneToOne(cascade = CascadeType.ALL)
-    private ContactDetails contactDetails;
+    @Embedded
+    ContactDetails contactDetails;
     private String firstName;
     private String lastName;
-    @Column(name = "semester", nullable = false)
+    @Column(nullable = false)
     private Integer semester = 1;
     @JoinColumn(referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_studentCourse"))
     @ManyToOne
     private Course course;
     private long rollNumber;
-    private boolean completed = false;
+    private LocalDate completionDate;
     private LocalDate joiningDate;
     private LocalDate dob;
-
-    public String getName() {
-        return firstName + " " + lastName;
-    }
 }

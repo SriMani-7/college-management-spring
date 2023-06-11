@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../boostrap/bootstrap.min.css" />
     <title>Admin dashboard</title>
+
+    <style>
+      tbody .btn-outline-info {
+        display: none;
+      }
+    </style>
   </head>
 
   <body>
@@ -66,7 +72,7 @@
         </div>
         <div class="col px-0">
           <header>
-            <div id="course-info" class="bg-light py-2">
+            <div id="course-info" class="py-2">
               <h3 id="name" class="ms-3">Masters of Computer Applications</h3>
               <h5 id="shortName" class="ms-3 navbar-brand">MCA</h5>
               <p id="description" class="ms-3 text-muted">
@@ -76,6 +82,7 @@
             </div>
           </header>
           <section>
+            <div class="toast-container position-fixed top-0 end-0 p-3"></div>
             <div class="tab-content p-3" id="ex1-content">
               <div
                 class="tab-pane fade show active"
@@ -93,11 +100,12 @@
 
                 <div class="table-responsive table-bordered">
                   <table class="table">
-                    <thead>
-                      <tr class="thead-light">
+                    <thead class="table-info">
+                      <tr>
                         <th scope="col">Subject ID</th>
                         <th scope="col">Subject Name</th>
                         <th scope="col">Semester</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody id="subjects-host"></tbody>
@@ -116,8 +124,8 @@
 
                 <div class="table-responsive table-bordered">
                   <table class="table">
-                    <thead>
-                      <tr class="text-center">
+                    <thead class="table-info">
+                      <tr>
                         <th scope="col">Joining date</th>
                         <th scope="col">First name</th>
                         <th scope="col">Last name</th>
@@ -125,6 +133,7 @@
                         <th scope="col">City</th>
                         <th scope="col">Mobile number</th>
                         <th scope="col">Email</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody id="faculties-host"></tbody>
@@ -143,8 +152,8 @@
 
                 <div class="table-responsive table-bordered">
                   <table class="table">
-                    <thead>
-                      <tr class="thead-light">
+                    <thead class="table-info p-3">
+                      <tr>
                         <th scope="col">Admission number</th>
                         <th scope="col">Joining date</th>
                         <th scope="col">Roll number</th>
@@ -155,6 +164,7 @@
                         <th scope="col">City</th>
                         <th scope="col">Mobile number</th>
                         <th scope="col">Email</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody id="students-host"></tbody>

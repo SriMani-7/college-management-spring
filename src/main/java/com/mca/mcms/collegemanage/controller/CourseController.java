@@ -6,9 +6,14 @@ import com.mca.mcms.collegemanage.dto.FacultyDto;
 import com.mca.mcms.collegemanage.dto.StudentDto;
 import com.mca.mcms.collegemanage.dto.SubjectDto;
 import com.mca.mcms.collegemanage.entity.*;
+import com.mca.mcms.collegemanage.entity.Faculty;
+import com.mca.mcms.collegemanage.entity.Student;
 import com.mca.mcms.collegemanage.repo.*;
 import jakarta.validation.Valid;
+import org.hibernate.InvalidMappingException;
+import org.hibernate.boot.jaxb.Origin;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -26,15 +31,14 @@ public class CourseController {
     private final SubjectRepo subjectRepo;
     private final FacultyRepo facultyRepo;
     private final StudentRepo studentsRepo;
-    private final ContactDetailsRepo contactDetailsRepo;
     private final UserRepo userRepo;
 
-    public CourseController(CoursesRepo coursesRepo, SubjectRepo subjectRepo, FacultyRepo facultyRepo, StudentRepo studentsRepo, ContactDetailsRepo contactDetailsRepo, UserRepo userRepo) {
+    @Autowired
+    public CourseController(CoursesRepo coursesRepo, SubjectRepo subjectRepo, FacultyRepo facultyRepo, StudentRepo studentsRepo, UserRepo userRepo) {
         this.coursesRepo = coursesRepo;
         this.subjectRepo = subjectRepo;
         this.facultyRepo = facultyRepo;
         this.studentsRepo = studentsRepo;
-        this.contactDetailsRepo = contactDetailsRepo;
         this.userRepo = userRepo;
     }
 
@@ -87,9 +91,9 @@ public class CourseController {
         }
         if (coursesRepo.existsById(courseId)) {
             Subject subject = subjectDto.getSubject();
-            if (!subjectRepo.existsById(subject.getSubjectId())) {
+            if (!subjectRepo.existsById(subject.getId())) {
                 subject.setCourse(coursesRepo.findById(courseId).orElseThrow());
-                System.out.println(subject.getSubjectId()+" "+subject.getName());
+                System.out.println(subject.getSubjectId() + " " + subject.getName());
                 subjectRepo.save(subject);
                 return ResponseEntity.ok(subject);
             } else return ResponseEntity.badRequest().body("Subject " + subject.getSubjectId() + " already existed");
@@ -110,19 +114,14 @@ public class CourseController {
             ContactDetails contactDetails = new ContactDetails();
             BeanUtils.copyProperties(facultyDto, contactDetails);
             BeanUtils.copyProperties(facultyDto, faculty);
-            contactDetailsRepo.save(contactDetails);
             faculty.setJoiningDate(LocalDate.now());
             faculty.setContactDetails(contactDetails);
             Optional<Course> byId = coursesRepo.findById(courseId);
             faculty.setCourse(byId.orElseThrow());
-            try {
-                facultyRepo.save(faculty);
-                User user = new User(UserType.FACULTY);
-                user.setUserName(faculty.getContactDetails().getEmail());
-                userRepo.save(user);
-            } catch (Exception ex) {
-                contactDetailsRepo.delete(contactDetails);
-            }
+            facultyRepo.save(faculty);
+            User user = new User(UserType.FACULTY);
+            user.setUserName(faculty.getContactDetails().getEmail());
+            userRepo.save(user);
             return ResponseEntity.ok(faculty);
         } else return ResponseEntity.notFound().build();
     }
@@ -140,21 +139,48 @@ public class CourseController {
             ContactDetails contactDetails = new ContactDetails();
             BeanUtils.copyProperties(studentDto, contactDetails);
             BeanUtils.copyProperties(studentDto, student);
-            contactDetailsRepo.save(contactDetails);
             student.setJoiningDate(LocalDate.now());
             student.setContactDetails(contactDetails);
-//            student.setSemester(1);
             Optional<Course> byId = coursesRepo.findById(courseId);
             student.setCourse(byId.orElseThrow());
-            try {
-                studentsRepo.save(student);
-                User user = new User(UserType.STUDENT);
-                user.setUserName(Long.toString(student.getAdmissionNumber()));
-                userRepo.save(user);
-            } catch (Exception ex) {
-                contactDetailsRepo.delete(contactDetails);
-            }
+            studentsRepo.save(student);
+            User user = new User(UserType.STUDENT);
+            user.setUserName(Long.toString(student.getAdmissionNumber()));
+            userRepo.save(user);
             return ResponseEntity.ok("Saved");
         } else return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{courseId}/{type}/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Long courseId, @PathVariable String type, @PathVariable Long id) {
+        if (coursesRepo.existsById(courseId)) {
+            switch (type) {
+                case "students" -> {
+                    if (studentsRepo.existsById(id)) {
+                        studentsRepo.deleteById(id);
+                        userRepo.deleteById(id.toString());
+                        return ResponseEntity.ok("successfully deleted");
+                    }
+                }
+                case "faculty" -> {
+                    if (facultyRepo.existsById(id)) {
+                        var optional = facultyRepo.findById(id);
+                        if (optional.isPresent()) {
+                            facultyRepo.deleteById(id);
+                            userRepo.deleteById(optional.get().getContactDetails().getEmail());
+                            return ResponseEntity.ok("successfully deleted");
+                        }
+                    }
+                }
+                case "subjects" -> {
+                    if (subjectRepo.existsById(id)) {
+                        subjectRepo.deleteById(id);
+                        return ResponseEntity.ok("successfully deleted");
+                    }
+                }
+                default -> throw new InvalidMappingException("Invalid path",Origin.UNKNOWN_FILE_PATH, "");
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 }

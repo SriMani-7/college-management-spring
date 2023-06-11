@@ -10,3 +10,7 @@ insert into Subjects (subject_id, name, semester, course_id) values("MCA 105B", 
 insert into Subjects (subject_id, name, semester, course_id) values("MCA 106P", "Software Lab I (based on 101 & 103)", 1,1);
 insert into Subjects (subject_id, name, semester, course_id) values("MCA 107P", "Object Oriented Programming Lab", 1,1);
 insert into Subjects (subject_id, name, semester, course_id) values("MCA 108P", "Operating Systems Lab", 1,1);
+
+insert into course_fees (id, course_id, price, academic_year) values(1, 1, 44000, 2021);
+insert into course_fees (id, course_id, price, academic_year) values(2, 2, 45000, 2021);
+insert into course_fees (id, course_id, price, academic_year) values(3, 3, 43000, 2021);
