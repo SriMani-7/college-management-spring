@@ -1,6 +1,7 @@
-package com.mca.mcms.collegemanage.entity;
+package com.mca.mcms.collegemanage.fee;
 
 
+import com.mca.mcms.collegemanage.entity.Course;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -58,7 +58,8 @@ async function loadStudentFee() {
 		  <td>${fee.student.firstName} ${fee.student.lastName}</td>
 		  <td>${fee.amount}</td>
 		  <td>${fee.paidDate}</td>
-		  <td>${fee.courseFee.acdemicYear}</td>
+		  <td>${fee.semester}</td>
+		  <td>${fee.courseFee.academicYear}</td>
       <td>${fee.transactionId}</td>
 		</tr>`;
   });
@@ -162,10 +163,13 @@ async function handlePost(type, form) {
     if (type == "faculty") {
       loadFaculties();
       facultyModal.hide();
+    } else if(type == "studentsFee") {
+      loadStudentFee();
+      studentFeeModal.hide();
     }
     form.reset();
   } else if (response.status === 500) {
-    const errorLabel = form.getElementById("errorLabel");
+    const errorLabel = form.querySelector("#errorLabel");
     const json = await response.text();
     errorLabel.textContent = json;
   }

@@ -26,7 +26,7 @@
             </span>
 
             <ul
-              class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+              class="nav nav-pills flex-column mb-sm-auto mb-0"
               id="menu"
             >
               <li class="nav-item" role="presentation">
@@ -205,6 +205,14 @@
 
                 <h5>All student transactions</h5>
 
+                <button
+                  class="btn-outline-primary btn mb-3"
+                  data-bs-toggle="modal"
+                  data-bs-target="#student-fee-modal"
+                >
+                  Add new Student fee transaction
+                </button>
+
                 <div class="table-responsive table-bordered">
                   <table class="table">
                     <thead class="table-info p-3">
@@ -232,8 +240,10 @@
     <script src="../util.js"></script>
     <script src="../forms.js"></script>
     <script src="../rest.js"></script>
+    <script src="../admin/forms.js"></script>
     <script src="/admin/courses.js"></script>
     <script>
+      
       document.body.append(
         createModal(
           "subjectsModal",
@@ -242,7 +252,16 @@
         )
       );
 
+      document.body.append(
+        createModal(
+          "student-fee-modal",
+          "Student fee form",
+          studentFeeForm.outerHTML
+        )
+      );
       const subjectsModal = new bootstrap.Modal("#subjectsModal");
+      const studentFeeModal = new bootstrap.Modal("#student-fee-modal");
+
 
       function handleForm(event, type) {
         event.preventDefault();
@@ -255,6 +274,7 @@
           handlePost(type, form);
         }
       }
+      
     </script>
   </body>
 </html>

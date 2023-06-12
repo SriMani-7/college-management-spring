@@ -1,6 +1,7 @@
-package com.mca.mcms.collegemanage.entity;
+package com.mca.mcms.collegemanage.fee;
 
 
+import com.mca.mcms.collegemanage.entity.Student;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @Table(name = "student_fee")
 public class StudentFee {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JoinColumn(nullable = false)
     @ManyToOne(cascade = CascadeType.REMOVE)
@@ -22,6 +24,7 @@ public class StudentFee {
     @JoinColumn(referencedColumnName = "id", nullable = false)
     @ManyToOne(cascade = CascadeType.REMOVE)
     private CourseFee courseFee;
+    @Column(unique = true)
     private long transactionId;
     private double amount;
     private LocalDate paidDate;

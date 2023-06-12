@@ -1,6 +1,5 @@
-package com.mca.mcms.collegemanage.repo;
+package com.mca.mcms.collegemanage.fee;
 
-import com.mca.mcms.collegemanage.entity.CourseFee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +10,6 @@ import java.util.Optional;
 public interface CourseFeeRepo extends JpaRepository<CourseFee, Long> {
 
     Optional<List<CourseFee>> findAllByCourse_Id(Long courseId);
+
+    Optional<CourseFee> findByCourse_IdAndAcademicYear(Long courseId, int academicYear);
 }

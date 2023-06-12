@@ -6,8 +6,7 @@ import com.mca.mcms.collegemanage.dto.FacultyDto;
 import com.mca.mcms.collegemanage.dto.StudentDto;
 import com.mca.mcms.collegemanage.dto.SubjectDto;
 import com.mca.mcms.collegemanage.entity.*;
-import com.mca.mcms.collegemanage.entity.Faculty;
-import com.mca.mcms.collegemanage.entity.Student;
+import com.mca.mcms.collegemanage.fee.*;
 import com.mca.mcms.collegemanage.repo.*;
 import jakarta.validation.Valid;
 import org.hibernate.InvalidMappingException;
@@ -212,6 +211,23 @@ public class CourseController {
                 var studentFees = optional.get();
                 return ResponseEntity.ok(studentFees);
             }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{courseId}/fee/students")
+    public ResponseEntity<?> addStudentFee(@RequestBody @Valid StudentFeeDto studentFeeDto, BindingResult bindingResult, @PathVariable Long courseId) {
+        if (bindingResult.hasErrors()) RestUtils.bindingErrors(bindingResult);
+        if (courseFeeRepo.existsById(courseId)) {
+            StudentFee studentFee = new StudentFee();
+            studentFee.setStudent(studentsRepo.findById(studentFeeDto.getAdmissionNumber()).orElseThrow());
+            studentFee.setCourseFee(courseFeeRepo.findByCourse_IdAndAcademicYear(courseId, studentFeeDto.getAcademicYear()).orElseThrow());
+            studentFee.setTransactionId(studentFeeDto.getTransactionId());
+            studentFee.setAmount(studentFeeDto.getAmount());
+            studentFee.setPaidDate(studentFeeDto.getDate());
+            studentFee.setSemester(studentFeeDto.getSemester());
+            studentRepo.save(studentFee);
+            return ResponseEntity.ok("Successfully added");
         }
         return ResponseEntity.notFound().build();
     }

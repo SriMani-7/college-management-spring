@@ -1,6 +1,5 @@
-package com.mca.mcms.collegemanage.repo;
+package com.mca.mcms.collegemanage.fee;
 
-import com.mca.mcms.collegemanage.entity.StudentFee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
