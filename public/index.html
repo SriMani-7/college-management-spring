@@ -6,35 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/boostrap/bootstrap.min.css" />
     <title>Mcms</title>
+    <style>
+      #login-container {
+        background-color: #B2EBF2;
+
+      }
+    </style>
   </head>
 
   <body>
-    <section class="py-5 text-center container">
-      <div class="row py-lg-5">
-        <div class="col-lg-8 col-md-8 mx-auto">
-          <h1 class="fw-light mb-4">SVU College of Commerce, Management & Computer Science</h1>
-          <p class="lead text-muted">
+    <section class="py-5 container">
+      <div class="row py-1">
+        <div class="col-lg-5 col-md-6 mx-auto text-center">
+          <h3 class="mb-4">SVU College of Commerce, Management & Computer Science</h3>
+          <p class="lead text-muted text-center">
             The college is committed to unlocking the potential of each
             individual, igniting their minds, and enriching their lives. With
             Degree and PG College as your educational partner, you can embark on
             a journey of self-discovery, realizing your true potential and
             paving the way to a bright and promising future.
           </p>
-
-          <p>
-            <button
-              class="btn btn-outline-primary m-2"
-              data-bs-toggle="modal"
-              data-bs-target="#loginModal"
-            >
-              Login
-            </button>
-          </p>
+        </div>
+        <div class="col-md-6 col-lg-4 mx-auto">
+          <div id="login-container" class="px-4 py-4 shadow-sm rounded-2"></div>
         </div>
       </div>
     </section>
-    <div class="album py-5 bg-light">
+    <div class="album py-2 bg-light">
       <div class="container">
+        <h2 class="fw-light mb-4">Available courses</h2>
         <div
           class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3 text-center"
           id="courses-list"
@@ -48,8 +48,7 @@
     <script>
       const teachingGrades = {};
 
-      let model = createModal("loginModal", "Login form", loginForm.outerHTML);
-      document.body.append(model);
+      document.querySelector('#login-container').append(loginForm);
 
       fetch("/api/courses", {
         method: "get",
@@ -96,6 +95,7 @@
           if (user == "admin")
             window.location.href = "admin?nav=courses";
           else window.location.href = `${user}`;
+          form.reset;
         } else if (response.status == 401) {
           errorLabel.textContent = json.message;
         } else if (response.status == 406) {

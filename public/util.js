@@ -39,6 +39,7 @@ function FormField({ name, label, error, type = "text", min, max }) {
         class: "form-control",
         name: name,
         required: true,
+        placeHolder: "Enter here"
       }),
       `<div class="invalid-feedback" id="${name}-error" data-field="${name}">${error}</div>`,
     ],
@@ -154,4 +155,9 @@ function SimpleToast(message, style) {
       </div>`,
     ]
   );
+}
+
+
+function el(selector) {
+  return document.querySelector(selector);
 }

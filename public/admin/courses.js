@@ -14,6 +14,8 @@ const endPoints = {
   students: `../api/courses/${courseId}/students`,
   faculty: `../api/courses/${courseId}/faculty`,
   subjects: `../api/courses/${courseId}/subjects`,
+  fee: `../api/courses/${courseId}/fee`,
+  studentsFee: `../api/courses/${courseId}/fee/students`
 };
 
 window.addEventListener("load", () => {
@@ -28,7 +30,39 @@ window.addEventListener("load", () => {
   loadFaculties();
   loadStudents();
   loadSubjects();
+  loadCourseFee();
+  loadStudentFee();
 });
+
+async function loadCourseFee() {
+  const response = await fetch(endPoints.fee);
+  const fees = await response.json();
+  el("#course-fee-table").innerHTML = "";
+  fees.forEach((fee) => {
+    el("#course-fee-table").innerHTML += `
+		<tr>
+    <td>${fee.academicYear}</td>
+		  <td>${fee.price}</td>
+		</tr>`;
+  });
+}
+
+async function loadStudentFee() {
+  const response = await fetch(endPoints.studentsFee);
+  const fees = await response.json();
+  el("#student-fee-table").innerHTML = "";
+  fees.forEach((fee) => {
+    el("#student-fee-table").innerHTML += `
+		<tr>
+		  <td>${fee.student.admissionNumber}</td>
+		  <td>${fee.student.firstName} ${fee.student.lastName}</td>
+		  <td>${fee.amount}</td>
+		  <td>${fee.paidDate}</td>
+		  <td>${fee.courseFee.acdemicYear}</td>
+      <td>${fee.transactionId}</td>
+		</tr>`;
+  });
+}
 
 async function loadFaculties() {
   const response = await fetch(endPoints.faculty);

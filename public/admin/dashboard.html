@@ -118,7 +118,7 @@
       }
 
       async function loadFaculties() {
-        const response = await fetch("/api/faculty");
+        const response = await fetch("/api/faculty/all");
         const faculties = await response.json();
         facultiesHost.innerHTML = "";
         faculties.forEach((faculty) => {

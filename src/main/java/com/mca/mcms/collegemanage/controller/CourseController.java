@@ -32,14 +32,18 @@ public class CourseController {
     private final FacultyRepo facultyRepo;
     private final StudentRepo studentsRepo;
     private final UserRepo userRepo;
+    private final CourseFeeRepo courseFeeRepo;
+    private final StudentFeeRepo studentRepo;
 
     @Autowired
-    public CourseController(CoursesRepo coursesRepo, SubjectRepo subjectRepo, FacultyRepo facultyRepo, StudentRepo studentsRepo, UserRepo userRepo) {
+    public CourseController(CoursesRepo coursesRepo, SubjectRepo subjectRepo, FacultyRepo facultyRepo, StudentRepo studentsRepo, UserRepo userRepo, CourseFeeRepo courseFeeRepo, StudentFeeRepo studentRepo) {
         this.coursesRepo = coursesRepo;
         this.subjectRepo = subjectRepo;
         this.facultyRepo = facultyRepo;
         this.studentsRepo = studentsRepo;
         this.userRepo = userRepo;
+        this.courseFeeRepo = courseFeeRepo;
+        this.studentRepo = studentRepo;
     }
 
     @GetMapping
@@ -55,6 +59,11 @@ public class CourseController {
             return ResponseEntity.internalServerError().body("The course already existed");
         }
         Course save = coursesRepo.save(courseDto.getCourse());
+        CourseFee courseFee = new CourseFee();
+        courseFee.setCourse(save);
+        courseFee.setPrice(courseFee.getPrice());
+        courseFee.setAcademicYear(courseDto.getAcademicYear());
+        courseFeeRepo.save(courseFee);
         return ResponseEntity.ok(save);
     }
 
@@ -179,6 +188,29 @@ public class CourseController {
                     }
                 }
                 default -> throw new InvalidMappingException("Invalid path",Origin.UNKNOWN_FILE_PATH, "");
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{courseId}/fee")
+    public ResponseEntity<?> fee(@PathVariable Long courseId) {
+        if (courseFeeRepo.existsById(courseId)) {
+            var optional = courseFeeRepo.findAllByCourse_Id(courseId);
+            if (optional.isPresent()) {
+                return ResponseEntity.ok(optional.get());
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{courseId}/fee/students")
+    public ResponseEntity<?> studentFee(@PathVariable Long courseId) {
+        if (courseFeeRepo.existsById(courseId)) {
+            var optional = studentRepo.findAllByCourseFee_Course_Id(courseId);
+            if (optional.isPresent()) {
+                var studentFees = optional.get();
+                return ResponseEntity.ok(studentFees);
             }
         }
         return ResponseEntity.notFound().build();

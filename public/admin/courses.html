@@ -65,6 +65,18 @@
                   >Students</a
                 >
               </li>
+              <li class="nav-item" role="presentation">
+                <a
+                  class="nav-link"
+                  id="ex1-tab-4"
+                  data-bs-toggle="tab"
+                  href="#ex1-tabs-4"
+                  role="tab"
+                  aria-controls="ex1-tabs-4"
+                  aria-selected="false"
+                  >Fee</a
+                >
+              </li>
             </ul>
             <hr />
             <button class="btn btn-outline-primary">Logout</button>
@@ -168,6 +180,45 @@
                       </tr>
                     </thead>
                     <tbody id="students-host"></tbody>
+                  </table>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="ex1-tabs-4"
+                role="tabpanel"
+                aria-labelledby="ex1-tab-4"
+              >
+                <h5 class="py-1">Course fee for different academic years</h5>
+
+                <div class="table-responsive table-bordered">
+                  <table class="table">
+                    <thead class="table-info p-3">
+                      <tr>
+                        <th scope="col">Academic Year</th>
+                        <th scope="col">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody id="course-fee-table"></tbody>
+                  </table>
+                </div>
+
+                <h5>All student transactions</h5>
+
+                <div class="table-responsive table-bordered">
+                  <table class="table">
+                    <thead class="table-info p-3">
+                      <tr>
+                        <th scope="col">Admission Number</th>
+                        <th scope="col">Student name</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Paid date</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Academic year</th>
+                        <th scope="Transaction id">Transaction id</th>
+                      </tr>
+                    </thead>
+                    <tbody id="student-fee-table"></tbody>
                   </table>
                 </div>
               </div>
