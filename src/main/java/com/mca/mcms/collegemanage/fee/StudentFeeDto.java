@@ -25,4 +25,13 @@ public class StudentFeeDto {
     private long transactionId;
     @Positive
     private int academicYear;
+
+    public StudentFeeDto(StudentFee studentFee) {
+        admissionNumber = studentFee.getStudent().getAdmissionNumber();
+        semester = studentFee.getSemester();
+        date = studentFee.getPaidDate();
+        amount = studentFee.getAmount();
+        transactionId = studentFee.getTransactionId();
+        academicYear = studentFee.getCourseFee().getAcademicYear();
+    }
 }

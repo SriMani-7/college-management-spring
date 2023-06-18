@@ -104,7 +104,6 @@ function loadStudentsList(list) {
 		<td>${student.firstName}</td>
 		<td>${student.lastName}</td>
 		<td>${student.course.name}</td>
-		<td>${student.academicYear}</td>
 		<td>${student.contactDetails.city}</td>
 		<td>${student.contactDetails.mobileNumber}</td>
 		<td>${student.contactDetails.email}</td>

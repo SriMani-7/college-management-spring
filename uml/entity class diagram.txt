@@ -1,0 +1,94 @@
+@startuml
+UserType *-- User
+Course "1" *-- "many" Subject : has
+
+Course "1" *-- "many" Faculty : contains
+Subject "1" *-- "many" Faculty
+ContactDetails "1" *-- "1" Student : has
+ContactDetails "1" *-- "1" Faculty : has
+Student "1" *-- "many" StudentFee
+Student "many" --* "1" Course  : contains
+CourseFee *-- StudentFee
+
+FacultyType *-- Faculty
+
+class Course {
+ - long id
+ - String name
+ - String description
+}
+
+class User {
+ - String userName
+ - String password
+ - UserType userType
+}
+
+enum UserType {
+ + ADMIN
+ + STUDENT
+ + FACULTY
+}
+
+class Student {
+    - long admissionNumber
+    - ContactDetails contactDetails
+    - String firstName
+    - String lastName
+    - Integer semester
+    - Course course
+    - long rollNumber
+    - LocalDate completionDate
+    - LocalDate joiningDate
+    - LocalDate dob
+}
+
+class ContactDetails {
+    - String email
+    - long mobileNumber
+    - String state
+    - String city
+    - String addressLine1
+    - int pinCode
+}
+
+class Faculty {
+    - long id
+    - ContactDetails contactDetails
+    - Course course
+    - Subject subject
+    - LocalDate joiningDate
+    - FacultyType facultyType
+}
+
+enum FacultyType {
+    + ASST_PROFESSOR
+    + PROFESSO
+    + SCHOLER
+}
+
+class Subject {
+    - Long id
+    - String subjectId
+    - String name
+    - Course course
+    - int semester
+}
+
+class CourseFee {
+    - Long id
+    - Course course
+    - Double price
+    - int academicYear
+}
+
+class StudentFee {
+    - Long id
+    - Student student
+    - CourseFee courseFee
+    - long transactionId
+    - double amount
+    - LocalDate paidDate
+    - int semester
+}
+@enduml

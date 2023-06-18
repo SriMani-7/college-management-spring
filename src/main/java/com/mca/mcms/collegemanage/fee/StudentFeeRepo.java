@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface StudentFeeRepo extends JpaRepository<StudentFee, Long> {
     Optional<List<StudentFee>> findAllByCourseFee_Course_Id(Long courseId);
+    List<StudentFee> findAllByStudent_admissionNumber(Long number);
 }

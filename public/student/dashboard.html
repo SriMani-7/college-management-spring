@@ -34,9 +34,9 @@
           <div class="card mb-3">
             <div class="d-flex row g-0 flex-row">
               <div class="card-body">
-                <button class="btn float-end rounded-3">
+                <!-- <button class="btn float-end rounded-3">
                   <i class="bi bi-pencil"></i>
-                </button>
+                </button> -->
                 <div>
                   <i
                     class="bi-person-circle"
@@ -53,9 +53,9 @@
           </div>
           <div class="card p-2 mb-3">
             <div class="card-body">
-              <button class="btn float-end rounded-3">
+              <!-- <button class="btn float-end rounded-3">
                 <i class="bi bi-pencil"></i>
-              </button>
+              </button> -->
               <h4 class="card-title pb-2">Contact details</h4>
               <address id="address" class="card-text">
                 Andhra Pradesh, <br />
@@ -67,7 +67,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 col-lg-8">
           <div class="card mb-3">
             <div class="card-header lead">Course details</div>
             <div class="card-body">
@@ -77,11 +77,30 @@
               <p class="card-text" id="courseShort">MCA</p>
             </div>
           </div>
+          <div class="mb-3">
+            <div class="lead py-3">College fee transactions</div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="table-info p-3">
+                  <tr>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Paid date</th>
+                    <th scope="col">Semester</th>
+                    <th scope="col">Academic year</th>
+                    <th scope="Transaction id">Transaction id</th>
+                  </tr>
+                </thead>
+                <tbody id="student-fee-table"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
+        
       </div>
     </section>
 
     <script src="../boostrap/bootstrap.min.js"></script>
+    <script src="../util.js"></script>
     <script src="../rest.js"></script>
     <script>
       const name = document.getElementById("studentName");
@@ -92,6 +111,7 @@
       const courseShort = document.getElementById("courseShort");
 
       loadData();
+      loaFeeTransactions();
 
       async function loadData() {
         const response = await fetch("../api/student");
@@ -99,7 +119,7 @@
           const student = await response.json();
           name.innerText = student.firstName + " " + student.lastName;
           email.innerText = student.contactDetails.email;
-          rollNumber.innerText = "Roll No. "+student.rollNumber;
+          rollNumber.innerText = "Roll No. " + student.rollNumber;
           courseName.innerText = student.course.name;
           courseShort.innerText = `
           ${student.course.shortName}
@@ -112,7 +132,23 @@
           ${student.contactDetails.addressLine1},
           Pin-code : ${student.contactDetails.pinCode},
           `;
-        };
+        }
+      }
+
+      async function loaFeeTransactions() {
+        const response = await fetch("../api/student/transaction");
+        const fees = await response.json();
+        el("#student-fee-table").innerHTML = "";
+        fees.forEach((fee) => {
+          el("#student-fee-table").innerHTML += `
+            <tr>
+              <td>${fee.amount}</td>
+              <td>${fee.date}</td>
+              <td>${fee.semester}</td>
+              <td>${fee.academicYear}</td>
+              <td>${fee.transactionId}</td>
+            </tr>`;
+        });
       }
     </script>
   </body>
