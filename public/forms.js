@@ -155,7 +155,7 @@ function FacultyRegistrationForm(onSubmit) {
         type: "date",
       }),
       SelectOption({
-        name: "level",
+        name: "facultyType",
         label: "Qualification",
         options: {
           ASST_PROFESSOR: "Assistant Professor",

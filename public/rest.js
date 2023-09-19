@@ -1,9 +1,16 @@
 async function handleResponse(response) {
   if (!response.ok) {
-    throw new Error(response.statusText);
+    throw new Error(response.status);
   }
-  const json = await response.json();
-  return json;
+
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
+    const json = await response.json();
+    return json;
+  } else {
+    const text = await response.text();
+    return text;
+  }
 }
 
 async function get(url) {
@@ -28,7 +35,7 @@ async function postForm(url, form) {
   for (const [key, value] of formData.entries()) {
     jsonObject[key] = value;
   }
-  console.log("form data",jsonObject);
+  console.log("form data", jsonObject);
   return post(url, jsonObject);
 }
 

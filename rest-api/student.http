@@ -1,0 +1,31 @@
+### Rest password
+post http://localhost:8888/api/reset
+Content-Type: application/json
+
+{
+	"userName": "1234",
+	"userType": "STUDENT",
+	"password":  "123456789",
+	"confirmPassword": "123456789",
+	"dob": "2023-06-01"
+}
+
+### Login
+
+post http://localhost:8888/api/login
+Content-Type: application/json
+
+{
+	"userName": "1234",
+	"userType": "STUDENT",
+	"password":  "123456789"
+}
+
+### Get loggined student details
+GET http://localhost:8888/api/student
+
+### All students
+GET http://localhost:8888/api/student/all
+
+### Logout
+DELETE http://localhost:8888/api/logout

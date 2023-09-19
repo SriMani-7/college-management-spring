@@ -1,6 +1,6 @@
 package com.mca.mcms.collegemanage.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mca.mcms.collegemanage.entity.FacultyType;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,11 +30,9 @@ public class FacultyDto {
 
     @NotNull
     @DateTimeFormat(pattern = DATE_FORMAT)
-    @JsonFormat(pattern = DATE_FORMAT)
     private LocalDate dob;
 
-    @Positive
-    private int level;
+    private FacultyType facultyType;
 
     @NotBlank
     @Pattern(regexp = EMAIL, message = "Enter valid email address")

@@ -1,0 +1,61 @@
+@startuml
+left to right direction
+
+actor Administrator as Admin
+actor Faculty as Fac
+actor Bank
+actor Student as Stu
+database MYSQL as DB
+
+rectangle "Admin Actions" {
+    (Admin Login)
+    (Add Course)
+    (Assign Fee to Course)
+    (Add Subjects)
+    (Add Faculty)
+    (Assign Subjects to Faculty)
+    (Add Student)
+    (Add Student Payment Transaction)
+    (Change Admin Password)
+    (Admin Logout)
+}
+(Admin Actions) -- DB
+
+rectangle "Student Actions" {
+    (Student Login)
+    (Pay College Fee)
+    (Change Student Password)
+    (Student Logout)
+}
+(Student Actions) -- DB
+
+rectangle "Faculty Actions" {
+    (Faculty Login)
+    (View Students)
+    (Change Faculty Password)
+    (Faculty Logout)
+}
+(Faculty Actions) -- DB
+
+Admin --> (Admin Login)
+Admin --> (Add Course)
+Admin --> (Assign Fee to Course)
+Admin --> (Add Subjects)
+Admin --> (Add Faculty)
+Admin --> (Assign Subjects to Faculty)
+Admin --> (Add Student)
+Admin --> (Add Student Payment Transaction)
+Admin --> (Change Admin Password)
+Admin --> (Admin Logout)
+
+Stu --> (Student Login)
+Stu --> (Pay College Fee)
+(Pay College Fee) -- Bank
+Stu --> (Change Student Password)
+Stu --> (Student Logout)
+
+Fac --> (Faculty Login)
+Fac --> (View Students)
+Fac --> (Change Faculty Password)
+Fac --> (Faculty Logout)
+@enduml

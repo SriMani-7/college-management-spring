@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SubjectRepo extends JpaRepository<Subject, String> {
+public interface SubjectRepo extends JpaRepository<Subject, Long> {
 
     List<Subject> findByCourse_Id(Long courseId);
 }

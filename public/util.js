@@ -25,23 +25,25 @@ function createModal(id, title, body, footer) {
   return root;
 }
 
-function FormField({ name, label, error, type = "text", min, max}) {
+function FormField({ name, label, error, type = "text", min, max }) {
   return Div({
     attributes: {
-      class: 'col mb-3'
-    }, children: [
+      class: "col mb-3",
+    },
+    children: [
       Label(name, label),
-      createElement('input', {
+      createElement("input", {
         type: type,
         min: min,
         max: max,
-        class: 'form-control',
+        class: "form-control",
         name: name,
-        required: true
+        required: true,
+        placeHolder: "Enter here"
       }),
-      `<div class="invalid-feedback" id="${name}-error" data-field="${name}">${error}</div>`
-    ]
-  })
+      `<div class="invalid-feedback" id="${name}-error" data-field="${name}">${error}</div>`,
+    ],
+  });
 }
 
 function SelectOption({ name, label, options, error }) {
@@ -66,8 +68,7 @@ function SelectOption({ name, label, options, error }) {
 function createElement(tagName, attributes = {}, children = []) {
   const element = document.createElement(tagName);
   for (const [attr, value] of Object.entries(attributes)) {
-    if(value != undefined)
-    element.setAttribute(attr, value);
+    if (value != undefined) element.setAttribute(attr, value);
   }
 
   for (const child of children) {
@@ -103,28 +104,60 @@ function SubmitButton(title) {
 }
 
 function Label(forN, title) {
-  return createElement('label', {
-    class: 'form-label',
-    for: forN
-  }, [
-    title
-  ])
+  return createElement(
+    "label",
+    {
+      class: "form-label",
+      for: forN,
+    },
+    [title]
+  );
 }
 
 function Row(children) {
-  return createElement('div', {
-    class: 'row'
-  }, children)
+  return createElement(
+    "div",
+    {
+      class: "row",
+    },
+    children
+  );
 }
 
 function handleFormSubmit(event, onValid) {
   event.preventDefault();
-    const form = event.target;
+  const form = event.target;
 
-    if (!form.checkValidity()) {
-      event.stopPropagation();
-      form.classList.add("was-validated");
-    } else {
-      onValid(form);
-    }
+  if (!form.checkValidity()) {
+    event.stopPropagation();
+    form.classList.add("was-validated");
+  } else {
+    onValid(form);
+  }
+}
+
+function SimpleToast(message, style) {
+  return createElement(
+    "div",
+    {
+      class: "toast show",
+      'data-bs-autohide':"true",
+      'data-bs-delay': "1000"
+    },
+    [
+      `<div class="d-flex ${style}">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="nav-link ${style} me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+</svg>
+          </button>
+      </div>`,
+    ]
+  );
+}
+
+
+function el(selector) {
+  return document.querySelector(selector);
 }

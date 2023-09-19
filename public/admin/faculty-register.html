@@ -31,7 +31,7 @@
       const endPoint = `../api/courses/${courseId}/faculty`;
 
       async function handlePost(form) {
-        const response = await postForm(endPoints["faculty"], form);
+        const response = await postForm(endPoint, form);
         if (response.status === 200) {
           history.back();
         } else if (response.status === 500) {

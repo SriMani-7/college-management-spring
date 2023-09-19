@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../boostrap/bootstrap.min.css" />
     <title>Admin dashboard</title>
+
+    <style>
+      tbody .btn-outline-info {
+        display: none;
+      }
+    </style>
   </head>
 
   <body>
@@ -20,7 +26,7 @@
             </span>
 
             <ul
-              class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+              class="nav nav-pills flex-column mb-sm-auto mb-0"
               id="menu"
             >
               <li class="nav-item" role="presentation">
@@ -59,6 +65,18 @@
                   >Students</a
                 >
               </li>
+              <li class="nav-item" role="presentation">
+                <a
+                  class="nav-link"
+                  id="ex1-tab-4"
+                  data-bs-toggle="tab"
+                  href="#ex1-tabs-4"
+                  role="tab"
+                  aria-controls="ex1-tabs-4"
+                  aria-selected="false"
+                  >Fee</a
+                >
+              </li>
             </ul>
             <hr />
             <button class="btn btn-outline-primary">Logout</button>
@@ -66,7 +84,7 @@
         </div>
         <div class="col px-0">
           <header>
-            <div id="course-info" class="bg-light py-2">
+            <div id="course-info" class="py-2">
               <h3 id="name" class="ms-3">Masters of Computer Applications</h3>
               <h5 id="shortName" class="ms-3 navbar-brand">MCA</h5>
               <p id="description" class="ms-3 text-muted">
@@ -76,6 +94,7 @@
             </div>
           </header>
           <section>
+            <div class="toast-container position-fixed top-0 end-0 p-3"></div>
             <div class="tab-content p-3" id="ex1-content">
               <div
                 class="tab-pane fade show active"
@@ -93,11 +112,12 @@
 
                 <div class="table-responsive table-bordered">
                   <table class="table">
-                    <thead>
-                      <tr class="thead-light">
+                    <thead class="table-info">
+                      <tr>
                         <th scope="col">Subject ID</th>
                         <th scope="col">Subject Name</th>
                         <th scope="col">Semester</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody id="subjects-host"></tbody>
@@ -116,8 +136,8 @@
 
                 <div class="table-responsive table-bordered">
                   <table class="table">
-                    <thead>
-                      <tr class="text-center">
+                    <thead class="table-info">
+                      <tr>
                         <th scope="col">Joining date</th>
                         <th scope="col">First name</th>
                         <th scope="col">Last name</th>
@@ -125,6 +145,7 @@
                         <th scope="col">City</th>
                         <th scope="col">Mobile number</th>
                         <th scope="col">Email</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody id="faculties-host"></tbody>
@@ -143,21 +164,68 @@
 
                 <div class="table-responsive table-bordered">
                   <table class="table">
-                    <thead>
-                      <tr class="thead-light">
+                    <thead class="table-info p-3">
+                      <tr>
                         <th scope="col">Admission number</th>
                         <th scope="col">Joining date</th>
                         <th scope="col">Roll number</th>
                         <th scope="col">First name</th>
                         <th scope="col">Last name</th>
                         <th scope="col">Course</th>
-                        <th scope="col">Academic year</th>
                         <th scope="col">City</th>
                         <th scope="col">Mobile number</th>
                         <th scope="col">Email</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody id="students-host"></tbody>
+                  </table>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="ex1-tabs-4"
+                role="tabpanel"
+                aria-labelledby="ex1-tab-4"
+              >
+                <h5 class="py-1">Course fee for different academic years</h5>
+
+                <div class="table-responsive table-bordered">
+                  <table class="table">
+                    <thead class="table-info p-3">
+                      <tr>
+                        <th scope="col">Academic Year</th>
+                        <th scope="col">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody id="course-fee-table"></tbody>
+                  </table>
+                </div>
+
+                <h5>All student transactions</h5>
+
+                <button
+                  class="btn-outline-primary btn mb-3"
+                  data-bs-toggle="modal"
+                  data-bs-target="#student-fee-modal"
+                >
+                  Add new Student fee transaction
+                </button>
+
+                <div class="table-responsive table-bordered">
+                  <table class="table">
+                    <thead class="table-info p-3">
+                      <tr>
+                        <th scope="col">Admission Number</th>
+                        <th scope="col">Student name</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Paid date</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Academic year</th>
+                        <th scope="Transaction id">Transaction id</th>
+                      </tr>
+                    </thead>
+                    <tbody id="student-fee-table"></tbody>
                   </table>
                 </div>
               </div>
@@ -171,8 +239,10 @@
     <script src="../util.js"></script>
     <script src="../forms.js"></script>
     <script src="../rest.js"></script>
-    <script src="courses.js"></script>
+    <script src="../admin/forms.js"></script>
+    <script src="/admin/courses.js"></script>
     <script>
+      
       document.body.append(
         createModal(
           "subjectsModal",
@@ -181,7 +251,16 @@
         )
       );
 
+      document.body.append(
+        createModal(
+          "student-fee-modal",
+          "Student fee form",
+          studentFeeForm.outerHTML
+        )
+      );
       const subjectsModal = new bootstrap.Modal("#subjectsModal");
+      const studentFeeModal = new bootstrap.Modal("#student-fee-modal");
+
 
       function handleForm(event, type) {
         event.preventDefault();
@@ -194,6 +273,7 @@
           handlePost(type, form);
         }
       }
+      
     </script>
   </body>
 </html>

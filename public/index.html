@@ -6,41 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/boostrap/bootstrap.min.css" />
     <title>Mcms</title>
+    <style>
+      #login-container {
+        background-color: #b2ebf2;
+      }
+      #image-con {
+        background-image: url(images/svu_bg.jpg);
+        background-position: top;
+        background-repeat: space;
+        background-size: cover;
+        width: 100vw;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+  height: 450px
+        
+      }
+      #con {
+        z-index: 100;
+        position: relative;
+        background-color: rgba(56, 52, 52, 0.6);
+        border-radius: 2rem;
+      }
+      #empty {
+        height: 100px;
+      }
+      #row {
+        z-index: 110;
+        position: relative;
+      }
+      
+    </style>
   </head>
 
   <body>
-    <section class="py-5 text-center container">
-      <div class="row py-lg-5">
-        <div class="col-lg-8 col-md-8 mx-auto">
-          <h1 class="fw-light mb-4">SVU College of Commerce, Management & Computer Science</h1>
-          <p class="lead text-muted">
-            The college is committed to unlocking the potential of each
-            individual, igniting their minds, and enriching their lives. With
-            Degree and PG College as your educational partner, you can embark on
-            a journey of self-discovery, realizing your true potential and
-            paving the way to a bright and promising future.
-          </p>
 
-          <p>
-            <button
-              class="btn btn-outline-primary m-2"
-              data-bs-toggle="modal"
-              data-bs-target="#loginModal"
-            >
-              Login
-            </button>
-          </p>
+    <div id="image-con"></div>
+      <div id="empty"></div>
+      <section class="py-5 container">
+
+        <div class="row p-4" id="con">
+          <div class="text-center">
+            <h3 class="mb-4 text-white">
+              SVU College of Commerce, Management & Computer Science
+            </h3>
+            <p class="lead text-center text-white">
+              The college is committed to unlocking the potential of each
+              individual, igniting their minds, and enriching their lives. With
+              Degree and PG College as your educational partner, you can embark
+              on a journey of self-discovery, realizing your true potential and
+              paving the way to a bright and promising future.
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
-    <div class="album py-5 bg-light">
-      <div class="container">
-        <div
-          class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3 text-center"
-          id="courses-list"
-        ></div>
-      </div>
-    </div>
+
+        <div class="row" id="row">
+          <div class="col-md-8 col-lg-8">
+            <div class="album py-2 bg-light">
+              <div class="container">
+                <h2 class="fw-light mb-4">Available courses</h2>
+                <div
+                  class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3 text-center"
+                  id="courses-list"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-10 col-md-4 mx-auto col-lg-4">
+            <div
+            id="login-container"
+            class="px-4 py-4 shadow-sm rounded-2"
+          ></div>
+          </div>
+
+        </div>
+      </section>
+
     <script src="/boostrap/bootstrap.min.js"></script>
 
     <script src="util.js"></script>
@@ -48,8 +89,7 @@
     <script>
       const teachingGrades = {};
 
-      let model = createModal("loginModal", "Login form", loginForm.outerHTML);
-      document.body.append(model);
+      document.querySelector("#login-container").append(loginForm);
 
       fetch("/api/courses", {
         method: "get",
@@ -93,9 +133,9 @@
         if (response.status == 200) {
           errorLabel.textContent = json.message;
           const user = body.userType.toLowerCase();
-          if (user == "admin")
-            window.location.href = "admin/dashboard.html?nav=courses";
-          else window.location.href = `${user}/dashboard.html`;
+          if (user == "admin") window.location.href = "admin?nav=courses";
+          else window.location.href = `${user}`;
+          form.reset;
         } else if (response.status == 401) {
           errorLabel.textContent = json.message;
         } else if (response.status == 406) {

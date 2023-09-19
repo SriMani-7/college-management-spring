@@ -75,3 +75,4 @@ out/
 # .idea/modules
 # *.iml
 # *.ipr
+/database/
