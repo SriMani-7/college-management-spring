@@ -2,6 +2,7 @@ import { useState } from "react";
 import logo from "../assets/logo-32.png";
 import menuSvg from "../assets/menu-alt-03.svg";
 import { PrimaryButton } from "../ui/buttons";
+import { useNavigate } from "react-router-dom";
 
 const navigation = [
   { name: "Facilities", href: "#" },
@@ -29,6 +30,7 @@ const description =
 
 function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -72,9 +74,11 @@ function Navbar() {
                 </li>
               ))}
             </ul>
-            <PrimaryButton>
-              <span>Login</span>
-            </PrimaryButton>
+            <div className="ml-auto flex items-center px-6 lg:ml-0 lg:p-0">
+              <PrimaryButton handleOnClick={()=>navigate('/login')}>
+                <span>Login</span>
+              </PrimaryButton>
+            </div>
           </nav>
         </div>
       </header>
