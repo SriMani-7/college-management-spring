@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { PrimaryButton } from "../ui/buttons";
+import { BaseLinkButton, PrimaryButton } from "../ui/buttons";
 import { InputTextField } from "../ui/input";
 import { PasswordToggle, ToggleButton } from "../ui/toggle";
+import { useNavigate } from "react-router-dom";
 
 const USER_TYPES = [
   { label: "Student", value: "student" },
@@ -12,6 +13,9 @@ const USER_TYPES = [
 export default function LoginPage() {
   const [passwordShown, setPasswordShown] = useState(false);
   const [userType, setUserType] = useState("student");
+  const navigate = useNavigate();
+
+  const navigateForgetPassword = () => navigate("/forgetpassowrd")
 
   return (
     <div className="container mx-auto flex items-center justify-center min-h-screen flex-col text-center">
@@ -47,6 +51,10 @@ export default function LoginPage() {
         <PrimaryButton>
           <span>Login</span>
         </PrimaryButton>
+        <div className="h-6"></div>
+        <BaseLinkButton handleOnClick={navigateForgetPassword}>
+          <span>Forget Password</span>
+        </BaseLinkButton>
       </form>
     </div>
   );

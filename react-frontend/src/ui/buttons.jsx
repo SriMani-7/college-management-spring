@@ -8,3 +8,16 @@ export function PrimaryButton({ handleOnClick, children }) {
     </button>
   );
 }
+
+export function BaseLinkButton({ handleOnClick, children }) {
+  return (
+    <>
+      <button
+        onClick={handleOnClick}
+        className="inline-flex h-10 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded px-5 text-sm font-medium tracking-wide text-emerald-500 transition duration-300 hover:bg-emerald-50 hover:text-emerald-600 focus:bg-emerald-100 focus:text-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:text-emerald-300 disabled:shadow-none disabled:hover:bg-transparent"
+      >
+        {children}
+      </button>
+    </>
+  );
+}
