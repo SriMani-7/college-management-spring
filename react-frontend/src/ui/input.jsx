@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { PasswordToggle } from "./toggle";
+
 export function InputTextField({
   name,
   type = "text",
@@ -26,5 +29,21 @@ export function InputTextField({
       </label>
       {trailingContent}
     </div>
+  );
+}
+
+export function PasswordTextField({ name, label }) {
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  return (
+    <InputTextField
+      name={name}
+      type={passwordShown ? "password" : "text"}
+      label={label}
+      trailingContent=<PasswordToggle
+        show={passwordShown}
+        onChange={setPasswordShown}
+      />
+    />
   );
 }
