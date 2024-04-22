@@ -5,22 +5,33 @@ import { PasswordToggle, ToggleButton } from "../ui/toggle";
 import { useNavigate } from "react-router-dom";
 
 const USER_TYPES = [
-  { label: "Student", value: "student" },
-  { label: "Faculty", value: "faculty" },
-  { label: "Staff", value: "staff" },
+  { label: "Student", value: "STUDENT" },
+  { label: "Faculty", value: "FACULTY" },
+  { label: "Staff", value: "ADMIN" },
 ];
 
 export default function LoginPage() {
   const [passwordShown, setPasswordShown] = useState(false);
-  const [userType, setUserType] = useState("student");
+  const [userType, setUserType] = useState("STUDENT");
   const navigate = useNavigate();
 
   const navigateForgetPassword = () => navigate("/forgetpassowrd")
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let formData = new FormData(event.target)
+    localStorage.setItem("userType", formData.get('userType'));
+
+    // TODO: Implement login logic here i am approving authentication without validation fortesting.
+    // let data = Object.fromEntries(formData.entries());
+
+    navigate("/dashboard")
+  }
+
   return (
     <div className="container mx-auto flex items-center justify-center min-h-screen flex-col text-center">
       <h3 className=" text-3xl mb-12">Signin into</h3>
-      <form method="post" className="flex flex-col w-8/12 lg:w-4/12">
+      <form method="post" className="flex flex-col w-8/12 lg:w-4/12" onSubmit={handleSubmit}>
       
         <fieldset className="grid grid-cols-3 gap-4">
           {USER_TYPES.map((ut) => (
