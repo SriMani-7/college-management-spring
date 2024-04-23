@@ -25,7 +25,7 @@ export default function LoginPage() {
     // TODO: Implement login logic here i am approving authentication without validation fortesting.
     // let data = Object.fromEntries(formData.entries());
 
-    navigate("/dashboard")
+    navigate("/"+formData.get('userType').toLowerCase())
   }
 
   return (
