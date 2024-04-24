@@ -5,7 +5,7 @@ import SideNavigation from "./SideNavigation";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
-export default function DashboardHeader({ navigationItems = [] }) {
+export default function DashboardHeader({ title, navigationItems = [] }) {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
 
   return (
@@ -29,8 +29,8 @@ export default function DashboardHeader({ navigationItems = [] }) {
           {/** College logo with name */}
           <a href="" className="flex ms-2 md:me-24">
             <img src={logo} className="h-8 me-3" alt="collge Logo" />
-            <span className="self-center text-lg font-semibold hidden md:block whitespace-nowrap">
-              LumInSAT
+            <span className="self-center text-lg overflow-ellipsis md:block whitespace-nowrap">
+              {title}
             </span>
           </a>
         </div>
