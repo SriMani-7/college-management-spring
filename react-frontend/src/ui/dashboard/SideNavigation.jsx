@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import logout from "../../assets/logout_wght400.svg";
 
 export default function SideNavigation({ menuItems = [] }) {
@@ -13,7 +14,10 @@ export default function SideNavigation({ menuItems = [] }) {
     >
       {/** Nav items */}
       <div className="px-3 pb-4 overflow-y-auto">
-        <ul className="space-y-2 font-medium">{navItems}</ul>
+        <ul className="space-y-2 font-medium">
+          <SideNavigationItem item={{ name: "Home", href: "" }} end={true} />
+          {navItems}
+        </ul>
       </div>
 
       {/** Bottom slot */}
@@ -34,18 +38,17 @@ export default function SideNavigation({ menuItems = [] }) {
   );
 }
 
-function SideNavigationItem({ item }) {
+function SideNavigationItem({ item, end = false }) {
   return (
-    <li className="px-3">
-      <a
-        href={item.href}
-        className="flex items-center gap-3 rounded p-3 text-slate-700 transition-colors hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50 aria-[current=page]:bg-emerald-50 aria-[current=page]:text-emerald-500 "
-      >
-        <div className="flex items-center self-center">{/** icon */}</div>
-        <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
-          {item.name}
+    <li className="px-3 sidenav-item rounded-xl transition-colors has-[.active]:bg-slate-200 hover:bg-slate-100">
+      <NavLink to={item.href} end={end}>
+        <div className="flex items-center gap-3 p-3 text-slate-700">
+          <div className="flex items-center self-center ">{/** icon */}</div>
+          <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm">
+            {item.name}
+          </div>
         </div>
-      </a>
+      </NavLink>
     </li>
   );
 }
