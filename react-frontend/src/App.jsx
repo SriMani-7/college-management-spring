@@ -6,6 +6,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import "./App.css";
+import "./globals.css";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import ForgetPasswordPage from "./pages/ForgetPassowrd";
