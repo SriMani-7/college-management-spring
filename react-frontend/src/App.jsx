@@ -11,6 +11,7 @@ import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import ForgetPasswordPage from "./pages/ForgetPassowrd";
 import DashboardHeader from "./ui/dashboard/DashboardHeader";
+import ApplicationFormPage from "./pages/applicationForm";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,7 +19,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<HomePage />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="forgetpassowrd" element={<ForgetPasswordPage />} />
-
+      <Route path="admission-form" element={<ApplicationFormPage />} />
       {/** protected student navigation routes */}
       <Route element={<ProtectedRoute role="STUDENT" />}>
         <Route path="student">
