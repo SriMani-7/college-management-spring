@@ -21,7 +21,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const AdmissionForm = ({ control, onSubmit }) => {
+const AdmissionForm = ({ control, onSubmit, onNextTab }) => {
   const AdmiFormField = ({ name, label, type = "text" }) => (
     <FormField
       control={control}
@@ -56,7 +56,12 @@ const AdmissionForm = ({ control, onSubmit }) => {
             <AdmiFormField name="pincode" label="Pincode" />
           </div>
           <div className="flex justify-end">
-            <Button type="button" variant="secondary" className=" px-8 mt-3">
+            <Button
+              type="button"
+              variant="secondary"
+              className=" px-8 mt-3"
+              onClick={(e) => onNextTab("education")}
+            >
               Next
             </Button>
           </div>
@@ -76,7 +81,12 @@ const AdmissionForm = ({ control, onSubmit }) => {
             <AdmiFormField name="xiiYear" label="Passout year" />
           </div>
           <div className="flex justify-end">
-            <Button type="button" variant="secondary" className=" px-8 mt-3">
+            <Button
+              type="button"
+              variant="secondary"
+              className=" px-8 mt-3"
+              onClick={(e) => onNextTab("preferences")}
+            >
               Next
             </Button>
           </div>
@@ -116,6 +126,7 @@ const ApplicationDialogContent = () => (
 export default function ApplicationFormPage() {
   const { control, ...rest } = useForm();
   const [open, setOpen] = useState(false);
+  const [tabValue, setTabValue] = useState("basic");
 
   const onSubmit = (data) => {
     //TODO: Comming soon
@@ -131,7 +142,12 @@ export default function ApplicationFormPage() {
         not forget choose course preferences.
       </p>
 
-      <Tabs className="flex gap-4">
+      <Tabs
+        className="flex gap-4"
+        orientation="vertical"
+        value={tabValue}
+        onValueChange={setTabValue}
+      >
         <TabsList className="flex flex-col h-min p-2 gap-3">
           <TabsTrigger value="basic">Student Details</TabsTrigger>
           <TabsTrigger value="education">Education details</TabsTrigger>
@@ -142,6 +158,7 @@ export default function ApplicationFormPage() {
             <AdmissionForm
               control={control}
               onSubmit={rest.handleSubmit(onSubmit)}
+              onNextTab={setTabValue}
             />
           </Form>
         </Form>
