@@ -1,3 +1,13 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -8,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const AdmissionForm = ({ control, onSubmit }) => {
@@ -83,12 +94,33 @@ const AdmissionForm = ({ control, onSubmit }) => {
   );
 };
 
+const ApplicationDialogContent = () => (
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Applied Sucessfully</AlertDialogTitle>
+      <AlertDialogDescription>
+        Your application form has been submitted Sucessfully.
+        <p>
+          You can track application with this application number and registered
+          email address
+        </p>
+        <p className="font-semibold py-2">XXXXXXXXXXXX</p>
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogAction>Home</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+);
+
 export default function ApplicationFormPage() {
   const { control, ...rest } = useForm();
+  const [open, setOpen] = useState(false);
 
   const onSubmit = (data) => {
     //TODO: Comming soon
     console.log(data);
+    setOpen(true);
   };
 
   return (
@@ -109,11 +141,14 @@ export default function ApplicationFormPage() {
           <Form control={control} {...rest}>
             <AdmissionForm
               control={control}
-              handleSubmit={rest.handleSubmit(onSubmit)}
+              onSubmit={rest.handleSubmit(onSubmit)}
             />
           </Form>
         </Form>
       </Tabs>
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <ApplicationDialogContent />
+      </AlertDialog>
     </section>
   );
 }
