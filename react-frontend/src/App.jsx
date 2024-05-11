@@ -12,6 +12,7 @@ import LoginPage from "./pages/Login";
 import ForgetPasswordPage from "./pages/ForgetPassowrd";
 import DashboardHeader from "./ui/dashboard/DashboardHeader";
 import ApplicationFormPage from "./pages/applicationForm";
+import { PrincipalDeptsPage } from "./pages/principal";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,6 +69,19 @@ const router = createBrowserRouter(
           <Route path="alumini" element={<>alumini</>} />
           <Route path="feedbacks" element={<>Recieved Feedbacks</>} />
         </Route>
+      </Route>
+
+      <Route
+        path="principal"
+        element={
+          <DashboardHeader
+            title="Principal"
+            navigationItems={[{ name: "Departments", href: "departments" }]}
+          />
+        }
+      >
+        <Route index element={<>principal</>} />
+        <Route path="departments" element={<PrincipalDeptsPage />} />
       </Route>
     </Route>
   )
