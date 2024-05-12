@@ -72,15 +72,15 @@ const router = createBrowserRouter(
       </Route>
 
       <Route
-        path="principal"
+        path="acadamics"
         element={
           <DashboardHeader
-            title="Principal"
+            title="Acadamics"
             navigationItems={[{ name: "Departments", href: "departments" }]}
           />
         }
       >
-        <Route index element={<>principal</>} />
+        <Route index element={<>Acadamics dashboard</>} />
         <Route path="departments" element={<PrincipalDeptsPage />} />
       </Route>
     </Route>
