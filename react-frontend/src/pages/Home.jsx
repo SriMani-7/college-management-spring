@@ -1,7 +1,6 @@
 import { useState } from "react";
 import logo from "../assets/logo-32.png";
-import { PrimaryButton } from "../ui/buttons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MenuIcon } from "lucide-react";
 
 const navigation = [
@@ -75,9 +74,7 @@ function Navbar() {
               ))}
             </ul>
             <div className="ml-auto flex items-center px-6 lg:ml-0 lg:p-0">
-              <PrimaryButton handleOnClick={()=>navigate('/login')}>
-                <span>Login</span>
-              </PrimaryButton>
+              <Link to="/login">Login</Link>
             </div>
           </nav>
         </div>
