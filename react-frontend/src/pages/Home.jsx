@@ -1,8 +1,8 @@
 import { useState } from "react";
 import logo from "../assets/logo-32.png";
-import menuSvg from "../assets/menu-alt-03.svg";
 import { PrimaryButton } from "../ui/buttons";
 import { useNavigate } from "react-router-dom";
+import { MenuIcon } from "lucide-react";
 
 const navigation = [
   { name: "Facilities", href: "#" },
@@ -49,7 +49,7 @@ function Navbar() {
               aria-expanded={isToggleOpen ? "true" : "false"}
               aria-label="Toggle navigation"
             >
-              <img src={menuSvg} />
+              <MenuIcon/>
             </button>
             {/*      <!-- Navigation links --> */}
             <ul

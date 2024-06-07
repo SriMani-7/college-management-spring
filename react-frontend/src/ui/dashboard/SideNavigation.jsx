@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logout from "../../assets/logout_wght400.svg";
+import { LogOutIcon } from "lucide-react";
 
 export default function SideNavigation({ menuItems = [] }) {
   const navItems = menuItems.map((item) => (
@@ -27,7 +27,7 @@ export default function SideNavigation({ menuItems = [] }) {
           className="flex items-center gap-3 rounded p-3 text-slate-900 transition-colors hover:text-emerald-500 "
         >
           <div className="flex items-center self-center ">
-            <img src={logout} />
+            <LogOutIcon/>
           </div>
           <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm font-medium">
             Logout

@@ -1,9 +1,8 @@
-import menu03 from "../../assets/menu-alt-03.svg";
 import logo from "../../assets/logo-32.png";
-import notificationIcon from "../../assets/notifications_wght400.svg";
 import SideNavigation from "./SideNavigation";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { MenuIcon } from "lucide-react";
 
 export default function DashboardHeader({ title, navigationItems = [] }) {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
@@ -23,7 +22,7 @@ export default function DashboardHeader({ title, navigationItems = [] }) {
             className="inline-flex items-center text-sm rounded-lg md:hidden"
           >
             <span className="sr-only">Open sidebar</span>
-            <img src={menu03} className=" size-10" />
+            <MenuIcon/>
           </button>
 
           {/** College logo with name */}
@@ -38,7 +37,7 @@ export default function DashboardHeader({ title, navigationItems = [] }) {
         <div className="flex items-center ms-3 gap-3">
           {/** Actions */}
           <div>
-            <img src={notificationIcon} />
+            <notificationIcon/>
           </div>
         </div>
       </header>

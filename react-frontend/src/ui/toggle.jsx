@@ -1,10 +1,9 @@
-import Visibility from "../icons/Visibility";
-import VisibilityOff from "../icons/VisibilityOff";
+import { Eye, EyeOff } from "lucide-react";
 
 export function PasswordToggle({ show, onChange }) {
   return (
     <div onClick={() => onChange(!show)}>
-      {show ? <Visibility /> : <VisibilityOff />}
+      {show ? <Eye/> : <EyeOff/>}
     </div>
   );
 }
