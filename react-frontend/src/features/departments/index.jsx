@@ -7,23 +7,40 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Form,
-} from "@/components/ui/form";
-import { useState } from "react";
+import { Form } from "@/components/ui/form";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { DepartmentsTable } from "./list";
 import { SimpleFormField } from "@/components/formfield";
+import { createDepartment, fetchDepartments } from "./services";
 
 export function DepartmentsPage() {
   const [departments, setDepartments] = useState([]);
   const [newDeptDialog, setnewDeptDialog] = useState(false);
-  const { control, ...rest } = useForm();
+  const { control, handleSubmit, ...rest } = useForm();
 
-  const onNewCourse = (data) => {
-    departments.push(data);
-    setDepartments(departments);
-	setnewDeptDialog(false)
+  useEffect(() => {
+    const getDepartments = async () => {
+      const res = await fetchDepartments();
+      if (res.status == 200) {
+        setDepartments(res.data);
+      }
+    };
+
+    getDepartments();
+  }, []);
+
+  const onNewCourse = async (data) => {
+    try {
+      let res = await createDepartment(data);
+      if (res.status == 200) {
+        departments.push(res.data);
+        setDepartments(departments);
+      }
+    } catch (e) {
+      console.e("in component", e);
+    }
+    setnewDeptDialog(false);
   };
 
   return (
@@ -41,8 +58,12 @@ export function DepartmentsPage() {
               faculty and staff joined to department.
             </DialogDescription>
           </DialogHeader>
-          <Form control={control} {...rest}>
-            <form method="post" onSubmit={rest.handleSubmit(onNewCourse)} className="flex gap-3 flex-col">
+          <Form control={control} handleSubmit={handleSubmit} {...rest}>
+            <form
+              method="post"
+              onSubmit={handleSubmit(onNewCourse)}
+              className="flex gap-3 flex-col"
+            >
               <SimpleFormField
                 control={control}
                 name="name"
@@ -50,8 +71,9 @@ export function DepartmentsPage() {
               />
               <SimpleFormField
                 control={control}
-                name="hod"
-                label="Head of the department"
+                name="vision"
+                type="textarea"
+                label="Department vision"
               />
               <DialogFooter>
                 <Button>Close</Button>

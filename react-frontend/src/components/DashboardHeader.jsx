@@ -2,7 +2,7 @@ import logo from "../assets/logo-32.png";
 import SideNavigation from "./SideNavigation";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { MenuIcon } from "lucide-react";
+import { BellIcon, MenuIcon } from "lucide-react";
 
 export default function DashboardHeader({ title, navigationItems = [] }) {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
@@ -37,7 +37,7 @@ export default function DashboardHeader({ title, navigationItems = [] }) {
         <div className="flex items-center ms-3 gap-3">
           {/** Actions */}
           <div>
-            <notificationIcon/>
+            <BellIcon/>
           </div>
         </div>
       </header>

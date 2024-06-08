@@ -6,7 +6,7 @@ export const DepartmentsTable = ({ depts }) => (
       <TableHeader>
         <TableRow>
           <TableHead>S.no</TableHead>
-          <TableHead>Department name</TableHead>
+          <TableHead>Department vision</TableHead>
           <TableHead>HOD</TableHead>
           <TableHead>Faculty</TableHead>
           <TableHead>Staff</TableHead>
@@ -18,7 +18,7 @@ export const DepartmentsTable = ({ depts }) => (
           <TableRow key={dept.id}>
             <TableCell>{index+1}</TableCell>
             <TableCell>{dept.name}</TableCell>
-            <TableCell>{dept.hod}</TableCell>
+            <TableCell>{dept.vision}</TableCell>
             <TableCell>{dept.faculty}</TableCell>
             <TableCell>{dept.staff}</TableCell>
             <TableCell>{dept.courses}</TableCell>
