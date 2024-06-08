@@ -7,13 +7,12 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import "./globals.css";
-import HomePage from "./pages/Home";
-import LoginPage from "./pages/Login";
-import ForgetPasswordPage from "./pages/ForgetPassowrd";
-import DashboardHeader from "./ui/dashboard/DashboardHeader";
-import ApplicationFormPage from "./pages/applicationForm";
-import { PrincipalDeptsPage } from "./pages/principal";
-import AcadamicsCoursesPage from "./pages/courses";
+import HomePage from "./features/home/home";
+import DashboardHeader from "./components/DashboardHeader";
+import ApplicationFormPage from "./features/admissions/applicationForm";
+import { DepartmentsPage } from "./features/departments";
+import AcadamicsCoursesPage from "./features/courses";
+import { ForgetPasswordPage, LoginPage } from "./features/authentication";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -85,7 +84,7 @@ const router = createBrowserRouter(
         }
       >
         <Route index element={<>Acadamics dashboard</>} />
-        <Route path="departments" element={<PrincipalDeptsPage />} />
+        <Route path="departments" element={<DepartmentsPage />} />
         <Route path="courses" element={<AcadamicsCoursesPage />} />
       </Route>
     </Route>

@@ -1,4 +1,4 @@
-import logo from "../../assets/logo-32.png";
+import logo from "../assets/logo-32.png";
 import SideNavigation from "./SideNavigation";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";

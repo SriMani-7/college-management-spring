@@ -1,7 +1,6 @@
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -60,7 +59,7 @@ const AdmissionForm = ({ control, onSubmit, onNextTab }) => {
               type="button"
               variant="secondary"
               className=" px-8 mt-3"
-              onClick={(e) => onNextTab("education")}
+              onClick={() => onNextTab("education")}
             >
               Next
             </Button>
@@ -85,7 +84,7 @@ const AdmissionForm = ({ control, onSubmit, onNextTab }) => {
               type="button"
               variant="secondary"
               className=" px-8 mt-3"
-              onClick={(e) => onNextTab("preferences")}
+              onClick={() => onNextTab("preferences")}
             >
               Next
             </Button>

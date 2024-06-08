@@ -1,6 +1,6 @@
 import { useState } from "react";
-import logo from "../assets/logo-32.png";
-import { Link, useNavigate } from "react-router-dom";
+import logo from "@/assets/logo-32.png";
+import { Link } from "react-router-dom";
 import { MenuIcon } from "lucide-react";
 
 const navigation = [
@@ -29,7 +29,6 @@ const description =
 
 function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <>
