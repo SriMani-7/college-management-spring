@@ -1,65 +1,37 @@
-import CoursesList from "./CourseList";
+import { useState } from "react";
+import { Dialog } from "@/components/ui/dialog";
+import { NewProgrammeDialogContent } from "./add-programme";
+import { Button } from "@/components/ui/button";
+import { getDegrees, getDepartments } from "./services";
 
-const courses = [
-    {
-      name: "Bachelor of Science (B.Sc)",
-      description: "Undergraduate courses in Science stream",
-      groups: [
-        {
-          code: "MPE",
-          subjects: ["Mathematics", "Physics", "Electronics"],
-        },
-        {
-          code: "MECs",
-          subjects: ["Mathematics", "Electronics", "Computer Science"],
-        },
-        {
-          code: "MPE",
-          subjects: ["Mathematics", "Physics", "Electronics"],
-        },
-        {
-          code: "MECs",
-          subjects: ["Mathematics", "Electronics", "Computer Science"],
-        },
-      ],
-    },
-    {
-      name: "Bachelor of Arts (B.A)",
-      description: "Undergraduate courses in arts stream",
-      groups: [
-        {
-          code: "EHP",
-          subjects: ["Economics", "History", "Political Science"],
-        },
-        {
-          code: "Journalism",
-          subjects: ["Journalism", "History", "Public Administration"],
-        },
-      ],
-    },
-    {
-      name: "Bachelor of Arts (B.A)",
-      description: "Undergraduate courses in arts stream",
-      groups: [
-        {
-          code: "EHP",
-          subjects: ["Economics", "History", "Political Science"],
-        },
-        {
-          code: "Journalism",
-          subjects: ["Journalism", "History", "Public Administration"],
-        },
-      ],
-    },
-  ];
-  
-  export default function AcadamicsCoursesPage() {
-    return (
+export default function AcadamicsCoursesPage() {
+  const [departments] = useState(getDepartments());
+  const [degrees] = useState(getDegrees());
+  const [newProgramme, setNewProgramme] = useState(true);
+
+  const handleNewProgramme = async (data) => {
+    console.log(data)
+  };
+
+  return (
+    <section>
+      <Button
+        variant="secondary"
+        onClick={() => {
+          setNewProgramme(true);
+        }}
+      >
+        New Programm
+      </Button>
       <div className="grid lg:grid-cols-2 gap-4">
-        {courses.map((course) => (
-          <CoursesList key={course.name} course={course} />
-        ))}
+        <Dialog open={newProgramme} onOpenChange={setNewProgramme}>
+          <NewProgrammeDialogContent
+            degrees={degrees}
+            departments={departments}
+            handleSubmit={handleNewProgramme}
+          />
+        </Dialog>
       </div>
-    );
-  }
-  
+    </section>
+  );
+}
