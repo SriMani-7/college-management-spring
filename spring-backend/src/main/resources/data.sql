@@ -1,47 +1,40 @@
-insert into Courses (id, short_name, name, description) values(1,'MCA', 'Masters of Computer Applications', 'MCA equips students with a strong foundation in computer science and prepares them for challenging and rewarding careers in the field of technology.');
-insert into Courses (id, short_name, name, description) values(2,'MBA', 'Master of Business Administration', 'Master of Business Administration (MBA) is a postgraduate degree program that focuses on providing advanced training in business and management.');
-insert into Courses (id, short_name, name, description) values(3,'MCom', 'Masters of Computer Applications', 'The course is ideal for students who want to learn, and drive careers in one of the following fields; international business');
-insert into Subjects (subject_id, name, semester, course_id) values("MCA 101", "Discrete Mathematical Structures", 1,1);
-insert into Subjects (subject_id, name, semester, course_id) values("MCA 102", "Object Oriented Programming with Java", 1,1);
-insert into Subjects (subject_id, name, semester, course_id) values("MCA 103", "Computer Organization", 1,1);
-insert into Subjects (subject_id, name, semester, course_id) values("MCA 104", "Operating Systems", 1,1);
-insert into Subjects (subject_id, name, semester, course_id) values("MCA 105A", "Accounting and Financial management", 1,1);
-insert into Subjects (subject_id, name, semester, course_id) values("MCA 105B", "Accounting Essentials for Computer Applications", 1,1);
-insert into Subjects (subject_id, name, semester, course_id) values("MCA 106P", "Software Lab I (based on 101 & 103)", 1,1);
-insert into Subjects (subject_id, name, semester, course_id) values("MCA 107P", "Object Oriented Programming Lab", 1,1);
-insert into Subjects (subject_id, name, semester, course_id) values("MCA 108P", "Operating Systems Lab", 1,1);
+insert into departments (id, name, vision) values(1, 'Physics', 'Our vision is to develop scientific skills, Scientific reasoning among students that will empower them to successfully move into the society with confidence and build their abilities and skills.');
+insert into departments (id, name, vision) values(2, 'Statistics', 'To become a centre of excellence in Statistics education and research by imparting students with latest statistical skills through high quality teaching methodologies.');
+insert into departments (id, name, vision) values(3, 'Mathematics', 'Mathematics crosses borders in a way that other  subjects are unable to. Therefore, our goal is to mould our students and teach them the fundamental ideas of mathematics nature and structure so they may use it in everyday life.');
+insert into departments (id, name, vision) values(4, 'Computer science', 'To make the Department a center of excellence for high quality human and knowledge resources in diverse areas of Computer Applications to meet technical and social needs of the society.');
+insert into departments (id, name, vision) values(5, 'Electronics', 'To become a pioneer in higher learning and to produce creative solution to social needs');
+insert into departments (id, name, vision) values(6, 'Economics', 'Imparting theoretical and applied knowledge of Economics and preparing the students for modern day challenges and global competition.');
 
-insert into course_fees (id, course_id, price, academic_year) values(1, 1, 44000, 2021);
-insert into course_fees (id, course_id, price, academic_year) values(2, 2, 45000, 2021);
-insert into course_fees (id, course_id, price, academic_year) values(3, 3, 43000, 2021);
+insert into departments (id, name, vision) values(7, 'Microbiology ', 'To evolve as a centre of community awareness and employability training; To widely disseminate the knowledge of microbiology especially among rural sections via empowered students.');
+insert into departments (id, name, vision) values(8, 'Zoology', 'Promoting the significance of animal conservation, providing quality knowledge and creating enthusiasm for studying the diversity of animals, ensuring all round development while working for transforming the students as socially responsible persons..');
+insert into departments (id, name, vision) values(9, 'Botany', 'To excel by providing quality education in Plant Sciences and to cultivate talent, equip students with skills that are employable and inventive.');
 
+--- Languages
+insert into departments (id, name, vision) values(10, 'Telugu', 'To make students learn the greatness of Telugu heritage, customs and traditions. Explain the need of Telugu language which has been losing its importance survival.');
+insert into departments (id, name, vision) values(11, 'English', 'Quality Communication for Personality Development.');
 
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2000-01-01', '2022-09-01', 12345, 2, 1001, 1, 1234567890, 123, '123 Main Street', 'City', 'example1@example.com', 'John', 'Doe', 'State');
+--- Degrees
+insert into ug_degrees (code, name) values('B.Sc', 'Bachelor of Science');
+insert into ug_degrees (code, name) values('B.A', 'Bachelor of Arts');
+insert into ug_degrees (code, name) values('B.Com', 'Bachelor of Commerce');
 
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2001-02-15', '2023-02-01', 54321, 1, 1002, 2, 9876543210, 456, '456 Oak Street', 'City', 'example2@example.com', 'Jane', 'Smith', 'State');
+--- BSC programmes
+insert into ug_programmes (code, name, degree_code) values('BS1', 'MPCs', 'B.Sc');
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS1',3);
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS1',1);
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS1',4);
 
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2002-07-20', '2023-03-15', 67890, 3, 1003, 3, 1112223334, 789, '789 Elm Street', 'City', 'example3@example.com', 'Michael', 'Johnson', 'State');
+insert into ug_programmes (code, name, degree_code) values('BS2', 'MSCs', 'B.Sc');
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS2',3);
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS2',2);
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS2',4);
 
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2003-05-10', '2023-04-01', 98765, 2, 1004, 1, 5554443332, 321, '321 Maple Street', 'City', 'example4@example.com', 'Emily', 'Brown', 'State');
+insert into ug_programmes (code, name, degree_code) values('BS3', 'MECs', 'B.Sc');
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS3',3);
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS3',5);
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS3',4);
 
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2004-09-25', '2023-05-01', 24680, 1, 1005, 2, 7778889990, 654, '654 Pine Street', 'City', 'example5@example.com', 'Andrew', 'Wilson', 'State');
-
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2005-03-12', '2023-06-01', 13579, 3, 1006, 3, 9998887776, 987, '987 Cedar Street', 'City', 'example6@example.com', 'Sophia', 'Davis', 'State');
-
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2006-11-05', '2023-07-01', 97531, 2, 1007, 1, 3332221118, 876, '876 Walnut Street', 'City', 'example7@example.com', 'Daniel', 'Lee', 'State');
-
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2007-08-18', '2023-08-01', 12345, 3, 1008, 2, 6667778886, 543, '543 Oak Street', 'City', 'example8@example.com', 'Olivia', 'Clark', 'State');
-
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2008-01-23', '2023-09-01', 54321, 1, 1009, 3, 2223334442, 210, '210 Elm Street', 'City', 'example9@example.com', 'David', 'Taylor', 'State');
-
-INSERT INTO students (dob, joining_date, pin_code, semester, admission_number, course_id, mobile_number, roll_number, address_line1, city, email, first_name, last_name, state)
-VALUES ('2009-04-09', '2023-10-01', 67890, 2, 1010, 1, 8889990002, 109, '109 Maple Street', 'City', 'example10@example.com', 'Emma', 'Miller', 'State');
+insert into ug_programmes (code, name, degree_code) values('BS4', 'MPE', 'B.Sc');
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS4',3);
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS4',1);
+insert into ug_programme_core_departments (ug_programme_code, core_departments_id) values('BS4',5);
