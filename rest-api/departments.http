@@ -1,0 +1,49 @@
+@endpoint = http://localhost:8888/api/departments
+
+### GEt all departments
+GET {{endpoint}} HTTP/1.1
+
+### create department
+POST {{endpoint}}
+Content-Type: application/json
+
+{
+    "name": "Computer applications",
+    "vision": "To make the Department a center of excellence for high quality human and knowledge resources in diverse areas of Computer Applications to meet technical and social needs of the society."
+}
+
+###
+POST {{endpoint}}
+Content-Type: application/json
+
+{
+    "name": "Computer Science",
+    "vision": "To make the Department a center of excellence for high quality human and knowledge resources in diverse areas of Computer Applications to meet technical and social needs of the society."
+}
+
+###
+POST {{endpoint}}
+Content-Type: application/json
+
+{
+    "name": "Mathematics",
+    "vision": "Mathematics crosses borders in a way that other  subjects are unable to. Therefore, our goal is to mould our students and teach them the fundamental ideas of mathematics' nature and structure so they may use it in everyday life."
+}
+
+###
+POST {{endpoint}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Statistics",
+    "vision": "To become a centre of excellence in Statistics education and research by imparting students with latest statistical skills through high quality teaching methodologies supplemented with practical orientation to face the challenges in the field of Statistics and for the benefit of the society."
+}
+
+###
+POST {{endpoint}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Physics",
+    "vision": "Our vision is to develop scientific skills, Scientific reasoning among students that will empower them to successfully move into the society with confidence and build their abilities and skills."
+}
