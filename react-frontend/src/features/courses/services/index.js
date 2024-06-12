@@ -1,17 +1,7 @@
+import axios from "axios"
 
-export const getDepartments = () => {
-    return [
-        "Computer Science",
-        "Physics",
-        "Chemistry",
-        "Mathematics",
-        "Statistics",
-        "Commerce",
-        "English",
-        "Telugu"
-    ]
-}
+const API_URL = "http://localhost:8888/api/programmes";
 
-export const getDegrees = () => {
-    return ["B.A", "B.Sc", "B.Com"]
+export const fetchProgrammes = async () => {
+    return await axios.get(API_URL);
 }
