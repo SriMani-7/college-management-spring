@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dialog } from "@/components/ui/dialog";
 import { NewProgrammeDialogContent } from "./add-programme";
 import { Button } from "@/components/ui/button";
-import { fetchProgrammes } from "./services";
+import { createProgramme, fetchAvailableDepts, fetchProgrammes } from "./services";
 import {
   Table,
   TableBody,
@@ -14,7 +14,7 @@ import {
 import { DegreeTableRow } from "./CourseList";
 
 export default function AcadamicsCoursesPage() {
-  const [departments] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [degrees, setDegrees] = useState([]);
   const [programmes, setProgrammes] = useState([]);
 
@@ -31,12 +31,45 @@ export default function AcadamicsCoursesPage() {
     }
 
     getProgrammes();
-  }, []);
+  }, []); // get all programmes
+
+  useEffect(() => {
+    let getDepartments = async () => {
+      try {
+        let res = await fetchAvailableDepts();
+        if(res.status == 200) {
+          setDepartments(res.data);
+        }
+      } catch(e) {
+        console.error("while loading available departments", e);
+      } 
+    }
+
+    getDepartments();
+  },[]); // get all available departments
 
   const [newProgramme, setNewProgramme] = useState(false);
 
   const handleNewProgramme = async (data) => {
-    console.log(data);
+    let postProgramme = async () => {
+      try {
+        let res = await createProgramme(data);
+        console.log(res.data);    
+        let data2 = res.data;
+        let degree = programmes.find(deg => deg.code == data2.degree);
+        degree.ugProgrammes.push({
+          code: data2.code,
+          name: data2.name,
+          coreDepartments: data2.departments
+        })
+        setProgrammes(programmes);
+        
+      } catch (error) {
+        console.error("While in cretiing the department", error)
+      }
+    }
+    
+    postProgramme(data);
   };
 
   return (

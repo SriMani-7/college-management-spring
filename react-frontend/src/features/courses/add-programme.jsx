@@ -57,7 +57,7 @@ export function NewProgrammeDialogContent({
 }) {
   const { control, ...rest } = useForm({
     defaultValues: {
-      departments: ["Physics"]
+      departments: []
     }
   });
 
@@ -102,20 +102,15 @@ export function NewProgrammeDialogContent({
                       <FormItem key={index}>
                         <FormControl>
                           <Checkbox
-                            checked={field.value.includes(dept)}
+                            checked={field.value.find(de => de.id == dept.id) != undefined}
                             onCheckedChange={(checked) => {
-                              // console.log(checked, field)
-                              // const can =  checked
-                              //   ? field.onChange([...field.value, dept])
-                              //   : field.onChange(
-                              //       field.value?.filter(
                               const value = checked ? [...field.value, dept] : field.value.filter(val => val != dept)
                               field.onChange(value)
-                              console.log(checked);
+                              console.log(checked, field);
                             }}
                           />
                         </FormControl>
-                        <FormLabel>{dept}</FormLabel>
+                        <FormLabel>{dept.name}</FormLabel>
                       </FormItem>
                     )}
                   />
