@@ -61,8 +61,8 @@ const router = createBrowserRouter(
           }
         >
           <Route index element={<>Admin dashboard</>} />
-          <Route path="departments" element={<>Departments</>} />
-          <Route path="courses" element={<>Courses</>} />
+          <Route path="departments" element={<DepartmentsPage />} />
+          <Route path="courses" element={<AcadamicsCoursesPage />} />
           <Route path="admissions" element={<>Admissions</>} />
           <Route path="fees" element={<>Student college fees</>} />
           <Route path="salaries" element={<>Staff salaries</>} />
@@ -71,22 +71,6 @@ const router = createBrowserRouter(
         </Route>
       </Route>
 
-      <Route
-        path="acadamics"
-        element={
-          <DashboardHeader
-            title="Acadamics"
-            navigationItems={[
-              { name: "Departments", href: "departments" },
-              { name: "Courses", href: "courses" },
-            ]}
-          />
-        }
-      >
-        <Route index element={<>Acadamics dashboard</>} />
-        <Route path="departments" element={<DepartmentsPage />} />
-        <Route path="courses" element={<AcadamicsCoursesPage />} />
-      </Route>
     </Route>
   )
 );
