@@ -12,7 +12,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { DepartmentsTable } from "./list";
 import { SimpleFormField } from "@/components/formfield";
-import { createDepartment, fetchDepartments } from "./services";
+import {
+  createDepartment,
+  fetchDepartmentFaculty,
+  fetchDepartments,
+} from "./services";
+import { useParams } from "react-router-dom";
+import { FacultyListCard } from "../faculty/list";
 
 export function DepartmentsPage() {
   const [departments, setDepartments] = useState([]);
@@ -88,5 +94,27 @@ export function DepartmentsPage() {
 }
 
 export function DepartmentOverview() {
-  return <>Department overview</>
+  const { did } = useParams();
+  const [faculty, setFaculty] = useState([]);
+
+  useEffect(() => {
+    let getFaculty = async () => {
+      try {
+        let res = await fetchDepartmentFaculty(did);
+        let data = res.data;
+        setFaculty(data);
+      } catch (error) {
+        console.error("While in getting faculty", error);
+      }
+    };
+
+    getFaculty();
+  }, [did]);
+
+  return (
+    <div>
+      <h4>Department overview</h4>
+      <FacultyListCard faculties={faculty} onNewFacultyClick={() => {}} />
+    </div>
+  );
 }

@@ -19,3 +19,7 @@ export const createDepartment = async (department) => {
     console.error("while creating department", e);
   }
 };
+
+export const fetchDepartmentFaculty = async (did) => {
+  return await axios.get(`${API_URL}/${did}/faculty`);
+}
