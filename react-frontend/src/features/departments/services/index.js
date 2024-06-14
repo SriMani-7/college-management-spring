@@ -23,3 +23,7 @@ export const createDepartment = async (department) => {
 export const fetchDepartmentFaculty = async (did) => {
   return await axios.get(`${API_URL}/${did}/faculty`);
 }
+
+export const createDepartmentFaculty = async (did, data) => {
+  return await axios.post(`${API_URL}/${did}/faculty`, data);
+}
