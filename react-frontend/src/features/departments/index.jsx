@@ -86,3 +86,7 @@ export function DepartmentsPage() {
     </>
   );
 }
+
+export function DepartmentOverview() {
+  return <>Department overview</>
+}

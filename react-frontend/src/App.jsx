@@ -10,7 +10,7 @@ import "./globals.css";
 import HomePage from "./features/home/home";
 import DashboardHeader from "./components/DashboardHeader";
 import ApplicationFormPage from "./features/admissions/applicationForm";
-import { DepartmentsPage } from "./features/departments";
+import { DepartmentOverview, DepartmentsPage } from "./features/departments";
 import AcadamicsCoursesPage from "./features/courses";
 import { ForgetPasswordPage, LoginPage } from "./features/authentication";
 
@@ -61,7 +61,10 @@ const router = createBrowserRouter(
           }
         >
           <Route index element={<>Admin dashboard</>} />
-          <Route path="departments" element={<DepartmentsPage />} />
+          <Route path="departments">
+            <Route index element={<DepartmentsPage />}/>
+            <Route path=":did" element={<DepartmentOverview/>}/>
+          </Route>
           <Route path="courses" element={<AcadamicsCoursesPage />} />
           <Route path="admissions" element={<>Admissions</>} />
           <Route path="fees" element={<>Student college fees</>} />

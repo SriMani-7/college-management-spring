@@ -1,4 +1,5 @@
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Link } from "react-router-dom";
 
 export const DepartmentsTable = ({ depts }) => (
     <Table>
@@ -6,22 +7,18 @@ export const DepartmentsTable = ({ depts }) => (
       <TableHeader>
         <TableRow>
           <TableHead>S.no</TableHead>
-          <TableHead>Department vision</TableHead>
-          <TableHead>HOD</TableHead>
-          <TableHead>Faculty</TableHead>
-          <TableHead>Staff</TableHead>
-          <TableHead>Courses</TableHead>
+          <TableHead>Department name</TableHead>
+          <TableHead>vision</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {depts.map((dept, index) => (
           <TableRow key={dept.id}>
             <TableCell>{index+1}</TableCell>
-            <TableCell>{dept.name}</TableCell>
+            <TableCell>
+              <Link to={`${dept.id}`}>{dept.name}</Link>
+            </TableCell>
             <TableCell>{dept.vision}</TableCell>
-            <TableCell>{dept.faculty}</TableCell>
-            <TableCell>{dept.staff}</TableCell>
-            <TableCell>{dept.courses}</TableCell>
           </TableRow>
         ))}
       </TableBody>
