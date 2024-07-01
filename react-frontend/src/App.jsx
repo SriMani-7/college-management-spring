@@ -1,4 +1,5 @@
 import {
+  Link,
   Outlet,
   Route,
   RouterProvider,
@@ -9,7 +10,7 @@ import "./App.css";
 import "./globals.css";
 import HomePage from "./features/home/home";
 import DashboardHeader from "./components/DashboardHeader";
-import ApplicationFormPage from "./features/admissions/applicationForm";
+import ApplicationFormPage from "./features/admissions";
 import { DepartmentOverview, DepartmentsPage } from "./features/departments";
 import AcadamicsCoursesPage from "./features/courses";
 import { ForgetPasswordPage, LoginPage } from "./features/authentication";
@@ -62,18 +63,28 @@ const router = createBrowserRouter(
         >
           <Route index element={<>Admin dashboard</>} />
           <Route path="departments">
-            <Route index element={<DepartmentsPage />}/>
-            <Route path=":did" element={<DepartmentOverview/>}/>
+            <Route index element={<DepartmentsPage />} />
+            <Route path=":did" element={<DepartmentOverview />} />
           </Route>
           <Route path="courses" element={<AcadamicsCoursesPage />} />
-          <Route path="admissions" element={<>Admissions</>} />
+          <Route path="admissions">
+            <Route
+              index
+              element={
+                <>
+                  <p>Student addmission</p>
+                  <Link to="application">Add student</Link>
+                </>
+              }
+            />
+            <Route path="application" element={<ApplicationFormPage />} />
+          </Route>
           <Route path="fees" element={<>Student college fees</>} />
           <Route path="salaries" element={<>Staff salaries</>} />
           <Route path="alumini" element={<>alumini</>} />
           <Route path="feedbacks" element={<>Recieved Feedbacks</>} />
         </Route>
       </Route>
-
     </Route>
   )
 );
