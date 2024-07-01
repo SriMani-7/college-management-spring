@@ -47,3 +47,23 @@ Content-Type: application/json
     "name": "Physics",
     "vision": "Our vision is to develop scientific skills, Scientific reasoning among students that will empower them to successfully move into the society with confidence and build their abilities and skills."
 }
+
+
+### read department details
+GET {{endpoint}}/1
+
+### Read faculty of the department
+GET {{endpoint}}/1/faculty
+
+### Create new faculty under department
+POST {{endpoint}}/1/faculty
+Content-Type: application/json
+
+{
+    "name": "Doe",
+    "email": "deo@email.com",
+    "mobileNumber": 89776787,
+    "gender": "male",
+    "address": "Karnataka, India",
+    "designation": "scholer"
+}
