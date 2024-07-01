@@ -65,7 +65,10 @@ const router = createBrowserRouter(
             <Route index element={<DepartmentsPage />}/>
             <Route path=":did" element={<DepartmentOverview/>}/>
           </Route>
-          <Route path="courses" element={<AcadamicsCoursesPage />} />
+          <Route path="courses" >
+            <Route index element={<AcadamicsCoursesPage/>}/>
+            <Route path=":cid" element={<>Course overview</>}/>
+          </Route>
           <Route path="admissions" element={<>Admissions</>} />
           <Route path="fees" element={<>Student college fees</>} />
           <Route path="salaries" element={<>Staff salaries</>} />
