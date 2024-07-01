@@ -12,7 +12,15 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { DepartmentsTable } from "./list";
 import { SimpleFormField } from "@/components/formfield";
-import { createDepartment, fetchDepartments } from "./services";
+import {
+  createDepartment,
+  createDepartmentFaculty,
+  fetchDepartmentFaculty,
+  fetchDepartments,
+} from "./services";
+import { useParams } from "react-router-dom";
+import { FacultyListCard } from "../faculty/list";
+import { AddFacultyDialogContent } from "../faculty/add-faculty";
 
 export function DepartmentsPage() {
   const [departments, setDepartments] = useState([]);
@@ -84,5 +92,47 @@ export function DepartmentsPage() {
         </DialogContent>
       </Dialog>
     </>
+  );
+}
+
+export function DepartmentOverview() {
+  const { did } = useParams();
+  const [faculty, setFaculty] = useState([]);
+  const [openFacultyDialog, setOpenFacultyDialog] = useState(false)
+
+  useEffect(() => {
+    let getFaculty = async () => {
+      try {
+        let res = await fetchDepartmentFaculty(did);
+        let data = res.data;
+        setFaculty(data);
+      } catch (error) {
+        console.error("While in getting faculty", error);
+      }
+    };
+
+    getFaculty();
+  }, [did]);
+
+  const handleNewFaculty = async (data) => {
+    try {
+      let res = await createDepartmentFaculty(did, data);
+      if(res.status == 200) {
+        faculty.push(res.data);
+        setFaculty(faculty);
+      }
+    } catch (error) {
+      console.error("While in creating faculty", error);
+    }
+  }
+
+  return (
+    <div>
+      <h4>Department overview</h4>
+      <FacultyListCard faculties={faculty} onNewFacultyClick={() => {setOpenFacultyDialog(true)}} />
+      <Dialog open={openFacultyDialog} onOpenChange={setOpenFacultyDialog}>
+        <AddFacultyDialogContent handleNewFaculty={handleNewFaculty}/>
+      </Dialog>
+    </div>
   );
 }
