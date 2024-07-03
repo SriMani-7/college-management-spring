@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EducationXii {
-    @Column(name = "xii_hallticket")
+    @Column(name = "xii_hallticket", unique = true)
     private long xiiHallticket;
     @Column(name = "xii_college")
     private String xiiCollege;
