@@ -16,6 +16,16 @@ public class Student {
     @Id
     @Column(name = "admission_number")
     private long admissionNumber;
+
+    public Student(long admissionNumber, String academicYear, String email, String firstName, String lastName, String region) {
+        this.admissionNumber = admissionNumber;
+        this.academicYear = academicYear;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.region = region;
+    }
+
     @Column(name = "academic_year")
     private String academicYear;
     @Column(unique = true)
