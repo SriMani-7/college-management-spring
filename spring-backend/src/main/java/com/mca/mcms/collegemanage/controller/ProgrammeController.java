@@ -1,16 +1,12 @@
 package com.mca.mcms.collegemanage.controller;
 
-import com.fasterxml.jackson.core.JsonFactoryBuilder;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mca.mcms.collegemanage.dto.ProgrammeDto;
 import com.mca.mcms.collegemanage.entity.Department;
 import com.mca.mcms.collegemanage.entity.UgDegree;
 import com.mca.mcms.collegemanage.entity.UgProgramme;
-import com.mca.mcms.collegemanage.projection.DegreeDto;
 import com.mca.mcms.collegemanage.repo.DepartmentRepository;
 import com.mca.mcms.collegemanage.repo.UgDegreeRepository;
 import com.mca.mcms.collegemanage.repo.UgProgrammeRepository;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
