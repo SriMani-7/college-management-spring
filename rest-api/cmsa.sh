@@ -8,7 +8,7 @@ function post() {
 }
 
 case $1 in
-  "course") source course.sh;;
+  "course") source courses.sh;;
 esac
 
 case $2 in

@@ -17,4 +17,5 @@ public class StudentDto {
     private String mobile;
     private String state;
     private int pincode;
+    private long course;
 }

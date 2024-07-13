@@ -1,5 +1,6 @@
 package com.mca.mcms.collegemanage.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Student {
     private String lastName;
     @JoinColumn(name = "course_id",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     private Course course;
 
 }
