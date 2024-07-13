@@ -4,7 +4,6 @@ import com.mca.mcms.collegemanage.dto.ProgrammeDto;
 import com.mca.mcms.collegemanage.entity.Department;
 import com.mca.mcms.collegemanage.entity.UgDegree;
 import com.mca.mcms.collegemanage.entity.UgProgramme;
-import com.mca.mcms.collegemanage.repo.DepartmentRepository;
 import com.mca.mcms.collegemanage.repo.UgDegreeRepository;
 import com.mca.mcms.collegemanage.repo.UgProgrammeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +23,11 @@ public class ProgrammeController {
 
     private final UgProgrammeRepository programmeRepository;
     private final UgDegreeRepository degreeRepository;
-    private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public ProgrammeController(UgProgrammeRepository programmeRepository, UgDegreeRepository degreeRepository, DepartmentRepository departmentRepository) {
+    public ProgrammeController(UgProgrammeRepository programmeRepository, UgDegreeRepository degreeRepository) {
         this.programmeRepository = programmeRepository;
         this.degreeRepository = degreeRepository;
-        this.departmentRepository = departmentRepository;
     }
 
     @GetMapping
@@ -51,15 +48,13 @@ public class ProgrammeController {
         ugProgramme.setUgDegree(degreeOptional.get());
 
         // Retrieve and associate the departments
-        List<Department> departments = new ArrayList<>();
         for (ProgrammeDto.Department departmentDto : programmeDto.getDepartments()) {
-            Optional<Department> departmentOptional = departmentRepository.findById(departmentDto.getId());
-            if (departmentOptional.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid department id: " + departmentDto.getId());
-            }
-            departments.add(departmentOptional.get());
+//            Optional<Department> departmentOptional = departmentRepository.findById(departmentDto.getId());
+//            if (departmentOptional.isEmpty()) {
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid department id: " + departmentDto.getId());
+//            }
+//            departments.add(departmentOptional.get());
         }
-        ugProgramme.setCoreDepartments(departments);
 
         // Save the UgProgramme entity
         UgProgramme savedProgramme = programmeRepository.save(ugProgramme);
@@ -76,10 +71,4 @@ public class ProgrammeController {
         );
         return ResponseEntity.ok(map);
     }
-
-    @GetMapping("/departments")
-    public ResponseEntity<?> getAvailableDepartments() {
-        return ResponseEntity.ofNullable(departmentRepository.getAvailableDepts());
-    }
-
 }
