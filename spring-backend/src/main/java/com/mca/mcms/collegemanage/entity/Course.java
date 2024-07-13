@@ -16,6 +16,6 @@ public class Course {
     private long id;
     private String name;
     private String description;
-    @OneToMany(mappedBy = "courses", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Student> students;
 }
