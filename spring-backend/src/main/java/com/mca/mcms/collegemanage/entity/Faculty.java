@@ -26,11 +26,8 @@ public class Faculty {
     private String gender;
     @Column(nullable = false)
     private String designation;
-    @JoinColumn(name = "department_id", referencedColumnName = "id", table = "departments", nullable = false, foreignKey = @ForeignKey(name = "fk_faculty_department_id"))
-    private long departmentId;
 
-    public Faculty(Long dId, FacultyDto facultyDto) {
-        departmentId = dId;
+    public Faculty(FacultyDto facultyDto) {
         name = facultyDto.getName();
         email = facultyDto.getEmail();
         address = facultyDto.getAddress();

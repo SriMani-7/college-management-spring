@@ -16,14 +16,14 @@ public class FacultyController {
         this.facultyRepository = facultyRepository;
     }
 
-    @GetMapping("/{id}/faculty")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getFaculty(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ofNullable(facultyRepository.findAll());
     }
 
-    @PostMapping("/{id}/faculty")
-    public ResponseEntity<?> addFaculty(@PathVariable(name = "id") Long id, @RequestBody FacultyDto facultyDto) {
-        var faculty = new Faculty(id, facultyDto);
+    @PostMapping()
+    public ResponseEntity<?> addFaculty(@RequestBody FacultyDto facultyDto) {
+        var faculty = new Faculty(facultyDto);
         return ResponseEntity.ofNullable(facultyRepository.save(faculty));
     }
 }
