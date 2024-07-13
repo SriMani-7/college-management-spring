@@ -8,19 +8,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-const ProgrammeSelectField = ({ control, programmes }) => (
+const CourseSelectFIeld = ({ control, courses }) => (
     <FormField
       control={control}
-      name="programme"
+      name="course"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Programmes</FormLabel>
+          <FormLabel>Courses</FormLabel>
           <FormControl>
             <RadioGroup onValueChange={field.onChange} defaultValue={field.value}>
-              {programmes.map((pro) => (
-                <FormItem key={pro.code}>
+              {courses.map((pro) => (
+                <FormItem key={pro.id}>
                   <FormControl>
-                    <RadioGroupItem value={pro.code} />
+                    <RadioGroupItem value={pro.id} />
                   </FormControl>
                   <FormLabel>{pro.code} {pro.name}</FormLabel>
                 </FormItem>
@@ -32,7 +32,7 @@ const ProgrammeSelectField = ({ control, programmes }) => (
     />
   );
 
-export const AdmissionForm = ({ control, programmes, onSubmit }) => {
+export const AdmissionForm = ({ control, courses, onSubmit }) => {
   const AdmiFormField = ({ name, label, type = "text" }) => (
     <FormField
       control={control}
@@ -61,7 +61,6 @@ export const AdmissionForm = ({ control, programmes, onSubmit }) => {
           <AdmiFormField name="mobile" label="Mobile Number" />
           <AdmiFormField name="email" label="Email Address" />
         </div>
-        <AdmiFormField name="region" label="Region" />
         <AdmiFormField name="address" label="Address" />
         <AdmiFormField name="city" label="City" />
         <div className="flex gap-3">
@@ -69,25 +68,9 @@ export const AdmissionForm = ({ control, programmes, onSubmit }) => {
           <AdmiFormField name="pincode" label="Pincode" />
         </div>
       </fieldset>
-      <h4 className=" text-xl mb-4 font-medium">Education details</h4>
-      <hr />
-      <fieldset>
-        <div className="flex gap-3">
-          <AdmiFormField name="xiiHallticket" label="Holl ticket number" />
-          <AdmiFormField name="xiiMarks" label="Marks" />
-        </div>
-        <AdmiFormField name="xiiCollege" label="College Name" />
-        <AdmiFormField name="xiiCollegeLocation" label="Location" />
-        <AdmiFormField name="xiiCourse" label="Course" />
-        <div className="flex gap-3">
-          <AdmiFormField name="xiiType" label="Course completion type" />
-          <AdmiFormField name="xiiYear" label="Passout year" />
-        </div>
-      </fieldset>
       <h4 className=" text-xl mb-4 font-medium">Course details</h4>
       <fieldset>
-        <ProgrammeSelectField control={control} programmes={programmes}/>
-        <AdmiFormField name="academicYear" label="Acadamic Year" />
+        <CourseSelectFIeld control={control} courses={courses}/>
         <AdmiFormField name="admissionNumber" label="Admission number" />
       </fieldset>
       <Button type="submit">Submit</Button>

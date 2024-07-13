@@ -3,9 +3,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { toast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { AdmissionForm } from "./form";
-import { createStudent } from "./services";
+import { createStudent, fetchAvailableCourses } from "./services";
 import { useEffect, useState } from "react";
-import { fetchProgrammes } from "../courses/services";
 
 export default function ApplicationFormPage() {
   const { control, ...rest } = useForm();
@@ -29,27 +28,22 @@ export default function ApplicationFormPage() {
     
   };
 
-  const [programmes, setProgrammes] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    async function getProgrammes() {
+    async function getCourses() {
       try {
-        let res = await fetchProgrammes();
+        let res = await fetchAvailableCourses();
         let data = res.data;
-        console.log(data);
-        const programmes2 = [];
-        data.forEach(de => de.ugProgrammes.forEach(pro => programmes2.push({
-          name: pro.name,
-          code: pro.code
-        })))
-        setProgrammes(programmes2)
+        console.log(data)
+        setCourses(data)
       } catch (e) {
-        console.error("while getting the programmes", e);
+        console.error("while getting the courses", e);
       }
     }
 
-    getProgrammes();
-  }, []); // get all programmes
+    getCourses();
+  }, []); // get all courses
 
   return (
     <section className="container mx-auto space-y-2 pt-4">
@@ -58,7 +52,7 @@ export default function ApplicationFormPage() {
         <AdmissionForm
           control={control}
           onSubmit={rest.handleSubmit(handleSubmit)}
-          programmes={programmes}
+          courses={courses}
         />
       </Form>
       <Toaster />

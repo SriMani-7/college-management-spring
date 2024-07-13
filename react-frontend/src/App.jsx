@@ -1,4 +1,5 @@
 import {
+  Link,
   Outlet,
   Route,
   RouterProvider,
