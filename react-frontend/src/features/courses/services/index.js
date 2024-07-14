@@ -1,15 +1,11 @@
 import axios from "axios"
 
-const API_URL = "http://localhost:8888/api/programmes";
+const API_URL = "http://localhost:8888/api/courses";
 
-export const fetchProgrammes = async () => {
+export const fetchCourses = async () => {
     return await axios.get(API_URL);
 }
 
-export const fetchAvailableDepts = async () => {
-    return await axios.get(API_URL+"/departments");
-}
-
-export const createProgramme = async (programme) => {
+export const createCourse = async (programme) => {
     return await axios.post(API_URL, programme);
 }
