@@ -16,8 +16,8 @@ public class FacultyController {
         this.facultyRepository = facultyRepository;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getFaculty(@PathVariable(name = "id") Long id) {
+    @GetMapping
+    public ResponseEntity<?> getFaculty(Long id) {
         return ResponseEntity.ofNullable(facultyRepository.findAll());
     }
 

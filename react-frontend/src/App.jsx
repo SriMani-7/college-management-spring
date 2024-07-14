@@ -11,9 +11,9 @@ import "./globals.css";
 import HomePage from "./features/home/home";
 import DashboardHeader from "./components/DashboardHeader";
 import ApplicationFormPage from "./features/admissions";
-import { DepartmentOverview, DepartmentsPage } from "./features/departments";
 import AcadamicsCoursesPage from "./features/courses";
 import { ForgetPasswordPage, LoginPage } from "./features/authentication";
+import { FacultyListPage } from "./features/faculty";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,7 +50,7 @@ const router = createBrowserRouter(
             <DashboardHeader
               title="Admin dashboard"
               navigationItems={[
-                { name: "Departments", href: "departments" },
+                { name: "Faculty", href: "faculty" },
                 { name: "Courses", href: "courses" },
                 { name: "Admissions", href: "admissions" },
                 { name: "Student fees", href: "fees" },
@@ -62,9 +62,8 @@ const router = createBrowserRouter(
           }
         >
           <Route index element={<>Admin dashboard</>} />
-          <Route path="departments">
-            <Route index element={<DepartmentsPage />} />
-            <Route path=":did" element={<DepartmentOverview />} />
+          <Route path="faculty">
+            <Route index element={<FacultyListPage />} />
           </Route>
           <Route path="courses" element={<AcadamicsCoursesPage />} />
           <Route path="admissions">
