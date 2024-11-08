@@ -2,6 +2,7 @@ package com.mca.mcms.collegemanage.dto;
 
 import com.mca.mcms.collegemanage.entity.Course;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,10 @@ public class CourseDto {
     private String description;
     @NotBlank
     private String shortName;
+    @Positive
+    private Double fee;
+    @Positive
+    private int academicYear;
 
     public Course getCourse() {
         Course course = new Course();

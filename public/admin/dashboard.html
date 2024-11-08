@@ -10,19 +10,7 @@
   <body>
     <header class="bg-light mb-3">
       <nav class="navbar navbar-light p-2">
-        <a class="navbar-brand" href="/admin/dashboard">Admin Dashboard</a>
-        <ul class="nav justify-content-end">
-          <a class="nav-link" href="/admin/dashboard.html?nav=courses"
-            >Courses</a
-          >
-          <a class="nav-link" href="/admin/dashboard.html?nav=faculties"
-            >Faculties</a
-          >
-          <a class="nav-link" href="/admin/dashboard.html?nav=students"
-            >Students</a
-          >
-          <a class="nav-link" href="#">Logout</a>
-        </ul>
+        <a class="navbar-brand" href="/admin">Admin Dashboard</a>
       </nav>
     </header>
 
@@ -42,64 +30,13 @@
       <div class="row" id="courses-list"></div>
     </div>
 
-    <div class="p-3 card" id="faculties-panel">
-      <table class="table-responsive card-body container">
-        <tr class="thead-light">
-          <th scope="col">Joining date</th>
-          <th scope="col">First name</th>
-          <th scope="col">Last name</th>
-          <th scope="col">Course</th>
-          <th scope="col">City</th>
-          <th scope="col">Mobile number</th>
-          <th scope="col">Email</th>
-        </tr>
-        <tbody id="faculties-host"></tbody>
-      </table>
-    </div>
-
-    <div id="students-panel">
-      <div id="students-host"></div>
-    </div>
-
     <script src="../boostrap/bootstrap.min.js"></script>
     <script src="../util.js"></script>
     <script src="../rest.js"></script>
     <script src="../forms.js"></script>
     <script>
       const coursesHost = document.querySelector("#courses-list");
-      const facultiesHost = document.querySelector("#faculties-host");
-      const studentsHost = document.querySelector("#students-host");
-
-      window.addEventListener("load", () => {
-        const navParameter = getNavParameter();
-        handleNavigation(navParameter);
-      });
-
-      function handleNavigation(nav) {
-        const coursesPanel = document.querySelector("#courses-panel");
-        const facultiesPanel = document.querySelector("#faculties-panel");
-        const studentsPanel = document.querySelector("#students-panel");
-
-        coursesPanel.style.display = "none";
-        facultiesPanel.style.display = "none";
-        studentsPanel.style.display = "none";
-
-        if (nav === "courses") {
-          loadCourses();
-          coursesPanel.style.display = "block";
-        } else if (nav === "faculties") {
-          loadFaculties();
-          facultiesPanel.style.display = "block";
-        } else if (nav === "students") {
-          loadStudents();
-          studentsPanel.style.display = "block";
-        }
-      }
-
-      function getNavParameter() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get("nav");
-      }
+      loadCourses();
 
       async function loadCourses() {
         let courses = await get("/api/courses");
@@ -111,32 +48,10 @@
                 <h5 class="card-title">${course.name}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">${course.shortName}</h6>
                 <p class="card-text">${course.description}</p>
-                <a class="card-link" href="/admin/courses.html?courseId=${course.id}">Open</a>
+                <a class="card-link" href="/admin-courses?courseId=${course.id}">Open</a>
               </div>
             </div>`;
         });
-      }
-
-      async function loadFaculties() {
-        const response = await fetch("/api/faculty");
-        const faculties = await response.json();
-        facultiesHost.innerHTML = "";
-        faculties.forEach((faculty) => {
-          facultiesHost.innerHTML += `
-            <tr>
-              <td>${faculty.joiningDate}</td>
-              <td>${faculty.firstName}</td>
-              <td>${faculty.lastName}</td>
-              <td>${faculty.course.name}</td>
-              <td>${faculty.contactDetails.city}</td>
-              <td>${faculty.contactDetails.mobileNumber}</td>
-              <td>${faculty.contactDetails.email}</td>
-            </tr>`;
-        });
-      }
-
-      async function loadStudents() {
-        // Implementation for loading students
       }
 
       async function addCourse(event) {

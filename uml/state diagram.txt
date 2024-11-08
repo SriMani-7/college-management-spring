@@ -1,0 +1,18 @@
+@startuml
+[*] --> Login
+Login --> CollegeManagementSystem : success
+Login --> Logout : failed
+
+
+state CollegeManagementSystem {
+    [*] --> AddingCourse : Add Course
+    AddingCourse --> AddingSubjects : Add Subjects
+    AddingSubjects --> AddingSubjects : Add More Subjects
+    AddingSubjects --> AddingFaculty : Done
+    AddingFaculty --> AddingFaculty : Add More Faculty
+    AddingFaculty --> AssigningSubjects : Done
+    AssigningSubjects --> AssigningSubjects : Assign More Subjects
+    AssigningSubjects --> Logout
+}
+
+@enduml

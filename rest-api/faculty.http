@@ -1,0 +1,33 @@
+@endpoint = http://localhost:8888/api/faculty
+@courseEndpoint = http://localhost:8888/api/courses/1/faculty
+
+### Forget password
+post http://localhost:8888/api/reset
+Content-Type: application/json
+
+{
+	"userName": "ramaraju@gmail.com",
+	"userType": "FACULTY",
+	"password":  "123456789",
+	"confirmPassword": "123456789",
+	"dob": "1888-02-22"
+}
+
+### login
+post http://localhost:8888/api/login
+Content-Type: application/json
+
+{
+	"userName": "ramaraju@gmail.com",
+	"userType": "FACULTY",
+	"password":  "123456789"
+}
+
+### Logout
+DELETE http://localhost:8888/api/logout
+
+### Get logined faculty details
+GET {{endpoint}}
+
+### Get faculties under course 1
+GET {{courseEndpoint}}
