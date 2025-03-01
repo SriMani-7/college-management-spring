@@ -99,7 +99,7 @@ public class CourseController {
         }
         if (coursesRepo.existsById(courseId)) {
             Subject subject = subjectDto.getSubject();
-            if (!subjectRepo.existsById(subject.getId())) {
+            if (!subjectRepo.existsBySubjectId(subject.getSubjectId())) {
                 subject.setCourse(coursesRepo.findById(courseId).orElseThrow());
                 System.out.println(subject.getSubjectId() + " " + subject.getName());
                 subjectRepo.save(subject);

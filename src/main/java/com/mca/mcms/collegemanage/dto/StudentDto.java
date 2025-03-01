@@ -20,11 +20,11 @@ public class StudentDto {
     public static final String EMAIL = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}";
 
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(max = 50)
     private String firstName;
 
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(max = 50)
     private String lastName;
 
     @NotNull

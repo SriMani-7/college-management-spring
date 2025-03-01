@@ -14,7 +14,7 @@ import lombok.Setter;
 public class CourseDto {
     @NotBlank
     private String name;
-    @Size(min = 20, max = 250)
+    @Size(max = 250)
     private String description;
     @NotBlank
     private String shortName;

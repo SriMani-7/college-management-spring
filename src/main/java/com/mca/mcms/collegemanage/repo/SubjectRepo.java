@@ -10,4 +10,6 @@ import java.util.List;
 public interface SubjectRepo extends JpaRepository<Subject, Long> {
 
     List<Subject> findByCourse_Id(Long courseId);
+    boolean existsBySubjectId(String subjectId);
+
 }
